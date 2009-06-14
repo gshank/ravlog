@@ -1,0 +1,77 @@
+[% # config/main.tt
+   #
+   # This is the main configuration template which is processed before
+   # any other page, by virtue of it being defined as a PRE_PROCESS 
+   # template.  This is the place to define any extra template variables,
+   # macros, load plugins, and perform any other template setup.
+
+   IF c.debug;
+     # define a debug() macro directed to Catalyst's log
+     MACRO debug(message) CALL c.log.debug(message);
+   END;
+
+   # set defaults for variables, etc.
+   DEFAULT 
+     site = { 
+		     title     => c.config.site.name,
+				layout => c.config.site.template _ '/layout.tt',
+				stylesheets => 'templates/' _ c.config.site.template _ '/static/stylesheets',
+				javascripts => 'templates/' _ c.config.site.template _ '/static/javascripts'
+				images => 'templates/' _ c.config.site.template _ '/static/images'
+			};
+						
+			MACRO ravlog_define_headers
+			BLOCK;
+			  dp_css_include_tag;
+				'<script src="/static/javascripts/application.js" type="text/javascript"></script>';
+				'<script src="/static/javascripts/nicetitles.js" type="text/javascript"></script>';
+				'<script src="/static/javascripts/ravlogcube.js" type="text/javascript"></script>';
+				'<script src="/static/javascripts/ravlogdates.js" type="text/javascript"></script>';
+				'<link href="/static/stylesheets/nicetitles.css" media="screen" rel="stylesheet" type="text/css" />';
+				'<link href="/static/stylesheets/default.css" media="screen" rel="stylesheet" type="text/css" />';
+			END;
+			
+			MACRO stylesheet_link_tag ( stylesheet )
+			BLOCK;
+					'<link href="/' _ site.stylesheets _ '/' _ stylesheet _ '"' _ ' rel="stylesheet" type="text/css" media="all" />';
+			END;
+			
+			MACRO javascript_include_tag ( javascript )
+			BLOCK;
+				'<script src="/' _ site.javascripts _ '/' _ javascript _ '" type="text/javascript"></script>';
+			END;
+						
+			MACRO javascript_include_tag ( javascript )
+			BLOCK;
+				'<script src="/' _ site.javascripts _ '/' _ javascript _ '" type="text/javascript"></script>';
+			END;
+			
+			MACRO load_file ( file )
+			BLOCK;
+				 c.config.site.template _ '/' _ file;
+			END;
+			
+			MACRO sh_js_include
+			BLOCK;
+			  '<script class="javascript" src="/static/shscripts/shCore.js"></script>';
+        '<script class="javascript" src="/static/shscripts/shBrushPerl.js"></script>';
+        '<script class="javascript">';
+        'dp.SyntaxHighlighter.HighlightAll("code");';
+        '</script>';
+         '<script type="text/javascript">';
+         'SyntaxHighlighter.config.clipboardSwf = "/static/shscripts/clipboard.swf";';
+         'SyntaxHighlighter.all();';
+         '</script>';
+			END;
+			
+			MACRO dp_css_include_tag
+			BLOCK;
+			'<link type="text/css" rel="stylesheet" href="/static/shstyles/shCore.css"></link>';
+			'<link type="text/css" rel="stylesheet" href="/static/shstyles/shThemeDefault.css"></link>';
+			END;
+			
+			MACRO image_tag ( image )
+			BLOCK;
+				'<img src="/' _ site.images _ '/' _ image _ '" alt="" />'; 
+			END;
+-%]

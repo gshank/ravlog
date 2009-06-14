@@ -1,0 +1,618 @@
+package RavLog::Controller::Admin;
+
+use strict;
+use warnings;
+use base 'Catalyst::Controller::FormBuilder';
+
+sub base : Chained('/') PathPart('admin') CaptureArgs(0) 
+{ 
+   my ( $self, $c ) = @_;
+
+   $c->res->redirect( $c->uri_for('/login') ) unless $c->user;
+
+}
+
+=pod
+
+sub auto : Private
+{
+   my ( $self, $c ) = @_;
+   $c->res->redirect('/') unless ( $c->user );
+
+   return 0 unless ( $c->user );
+}
+
+sub clear : Local
+{
+   my ( $self, $c, $id ) = @_;
+
+   my $article = $c->model('DB::Article')->find($id);
+   $c->forward( 'submit', 'cache_refresh', [$article] );
+   $c->res->body( '<p>cleared cache for ' . $article->subject . '</p>' );
+}
+
+sub clear_page : Local
+{
+   my ( $self, $c, $id ) = @_;
+
+   my $page = $c->model('DB::Page')->find($id);
+   $c->forward( 'submit', 'cache_refresh', [$page] );
+   $c->res->body( '<p>cleared cache for ' . $page->name . '</p>' );
+}
+
+sub create_page_form : Local Form
+{
+   my ( $self, $c, $form ) = @_;
+
+   my ( $name, $id, $body, $display_sidebar, $display_in_drawer ) = "";
+   if ( defined $c->stash->{page} )
+   {
+      $name = $c->stash->{page}->name();
+      $id   = $c->stash->{page}->id();
+      if ( $c->stash->{page}->display_sidebar() == 1 )
+      {
+         $display_sidebar = 'Yes';
+      }
+      else
+      {
+         $display_sidebar = 'No';
+      }
+      if ( $c->stash->{page}->display_in_drawer() == 1 )
+      {
+         $display_in_drawer = 'Yes';
+      }
+      else
+      {
+         $display_in_drawer = 'No';
+      }
+
+      $body = $c->stash->{page}->body();
+   }
+
+   $form->field(
+      name     => 'name',
+      required => 1,
+      label    => 'Page Name',
+      size     => 40,
+      value    => $name
+   );
+
+   $form->field(
+      name     => 'display_sidebar',
+      required => 1,
+      label    => 'Display the sidebar?',
+      type     => 'radio',
+      options  => [qw/Yes No/],
+      value    => $display_sidebar,
+   );
+
+   $form->field(
+      name     => 'display_in_drawer',
+      required => 1,
+      label    => 'Display in the drawer?',
+      type     => 'radio',
+      options  => [qw/Yes No/],
+      value    => $display_in_drawer,
+   );
+
+   $form->field(
+      name     => 'body',
+      required => 1,
+      label    => 'Page Content',
+      type     => 'textarea',
+      cols     => 60,
+      rows     => 20,
+      value    => $body,
+   );
+
+   # make sure no trailing slashes happen.
+   $id = '/' . $id if length($id) > 0;
+   $form->action( '/admin/page_commit' . $id );
+   $form->method('post');
+
+}
+
+sub create_tag_form : Local Form
+{
+   my ( $self, $c, $form ) = @_;
+
+   my ( $name, $id ) = "";
+   if ( defined $c->stash->{tag} )
+   {
+      $name = $c->stash->{tag}->name;
+      $id   = $c->stash->{tag}->id;
+   }
+
+   $form->field(
+      name     => 'name',
+      required => 1,
+      label    => 'Tag Name',
+      size     => 40,
+      value    => $name
+   );
+
+   # make sure no trailing slashes happen.
+   $id = '/' . $id if length($id) > 0;
+   $form->action( '/admin/tag_commit' . $id );
+   $form->method('post');
+}
+
+sub create_link_form : Local Form
+{
+   my ( $self, $c, $form ) = @_;
+
+   my ( $name, $id, $url, $description ) = "";
+   if ( defined $c->stash->{link} )
+   {
+      $name        = $c->stash->{link}->name;
+      $url         = $c->stash->{link}->url;
+      $description = $c->stash->{link}->description;
+      $id          = $c->stash->{link}->id;
+   }
+
+   $form->field(
+      name     => 'name',
+      required => 1,
+      label    => 'Displayed Name',
+      size     => 40,
+      value    => $name
+   );
+
+   $form->field(
+      name     => 'url',
+      required => 1,
+      label    => 'Url',
+      size     => 40,
+      value    => $url
+   );
+
+   $form->field(
+      name     => 'description',
+      required => 1,
+      label    => 'Description',
+      size     => 40,
+      value    => $description
+   );
+
+   # make sure no trailing slashes happen.
+
+   $id = '/' . $id if length($id) > 0;
+   $form->action( '/admin/link_commit' . $id );
+   $form->method('post');
+}
+
+sub create_user_form : Local Form
+{
+   my ( $self, $c, $form ) = @_;
+   my ( $name, $password, $website, $email, $id ) = "";
+   if ( defined $c->stash->{user} )
+   {
+      $name     = $c->stash->{user}->username;
+      $password = $c->stash->{user}->password;
+      $website  = $c->stash->{user}->website;
+      $email    = $c->stash->{user}->email;
+      $id       = $c->stash->{user}->id;
+   }
+
+   # $self->formbuilder->field(
+   # 	name		=> 'picture',
+   # 	required 	=> 0,
+   # 	label		=> 'User Picture',
+   # 	type		=> 'file',
+   # );
+   $form->field(
+      name     => 'name',
+      required => 1,
+      label    => 'User Name',
+      size     => 25,
+      value    => $name
+   );
+   $form->field(
+      name     => 'password',
+      required => 1,
+      type     => 'password',
+      label    => 'Password',
+      size     => 25,
+      value    => $password
+   );
+   $form->field(
+      name     => 'website',
+      required => 1,
+      label    => 'Website',
+      size     => 25,
+      value    => $website
+   );
+   $form->field(
+      name     => 'email',
+      required => 1,
+      label    => 'E-Mail',
+      validate => 'EMAIL',
+      size     => 25,
+      value    => $email
+   );
+   $form->enctype('multipart/form-data');
+   # make sure no trailing slashes happen.
+   $id = '/' . $id if length($id) > 0;
+   $form->action( '/admin/user_commit' . $id );
+   $form->method('post');
+}
+
+sub create_submit_form : Local Form
+{
+   my ( $self, $c, $form ) = @_;
+
+   my ( $subject, $body, $id, @selected_tag, @selected_blog ) = "";
+   if ( defined $c->stash->{article} )
+   {
+      $subject = $c->stash->{article}->subject();
+      $body    = $c->stash->{article}->body();
+      $id      = $c->stash->{article}->id();
+      foreach my $tag ( $c->stash->{article}->tags )
+      {
+         push @selected_tag, $tag->name;
+      }
+   }
+
+   my @tags = ();
+   foreach my $tag ( @{ $c->stash->{tags} } )
+   {
+      push @tags, $tag->name;
+   }
+
+   # my @blogs = ();
+   # foreach my $blog ( $c->user->blogs ) {
+   #     push @blogs, $blog->name;
+   # }
+
+   $form->field(
+      name     => 'subject',
+      label    => 'Subject',
+      size     => 40,
+      required => 1,
+      value    => $subject,
+   );
+   $form->field(
+      name     => 'tags',
+      required => 1,
+      label    => 'Tags',
+      multiple => 1,
+      options  => \@tags,
+      value    => \@selected_tag,
+   );
+
+   #     $self->formbuilder->field(
+   #         name     => 'blogs',
+   #         required => 1,
+   #         label    => 'Blogs',
+   #         multiple => 1,
+   #         options  => \@blogs,
+   # value 	 => \@selected_blog,
+   #     );
+   $form->field(
+      name     => 'body',
+      required => 1,
+      type     => 'textarea',
+      label    => 'Body',
+      value    => $body
+   );
+   # make sure no trailing slashes happen.
+   $id = '/' . $id if length($id) > 0;
+   $form->action( '/admin/commit' . $id );
+   $form->method('post');
+}
+
+sub tag : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+   if ( defined $id )
+   {
+      $c->stash->{tag} = $c->model('DB::Tag')->find($id);
+   }
+   $c->forward( '/admin/create_tag_form', [ $self->formbuilder ] );
+   $c->stash->{template} = 'admin/tag.tt';
+}
+
+sub page_commit : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+
+   if ( $self->formbuilder->validate )
+   {
+      my $page;
+      if ( defined $id )
+      {
+         $page = $c->model('DB::Page')->find($id);
+      }
+      else
+      {
+         $page = $c->model('DB::Page')->new( {} );
+      }
+      $page->name( $c->req->params->{name} );
+      $page->body( $c->req->params->{body} );
+
+      if ( $c->req->params->{display_sidebar} eq "Yes" )
+      {
+         $page->display_sidebar(1);
+      }
+      else
+      {
+         $page->display_sidebar(0);
+      }
+
+      if ( $c->req->params->{display_in_drawer} eq "Yes" )
+      {
+         $page->display_in_drawer(1);
+      }
+      else
+      {
+         $page->display_in_drawer(0);
+      }
+
+      $page->insert_or_update();
+
+      $c->res->redirect('/admin');
+   }
+}
+
+sub tag_commit : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+
+   if ( $self->formbuilder->validate && $self->formbuilder->submitted )
+   {
+      my $tag;
+      if ( defined $id )
+      {
+         $tag = $c->model('DB::Tag')->find($id);
+      }
+      else
+      {
+         $tag = $c->model('DB::Tag')->new( {} );
+      }
+      $tag->name( $c->req->params->{name} );
+      $tag->insert_or_update();
+
+      $c->res->redirect('/admin');
+   }
+}
+
+sub link_commit : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+
+   if ( $self->formbuilder->validate && $self->formbuilder->submitted )
+   {
+      my $link;
+      if ( defined $id )
+      {
+         $link = $c->model('DB::Link')->find($id);
+      }
+      else
+      {
+         $link = $c->model('DB::Link')->new( {} );
+      }
+      $link->name( $c->req->params->{name} );
+      $link->url( $c->req->params->{url} );
+      $link->description( $c->req->params->{description} );
+      $link->insert_or_update();
+
+      $c->res->redirect('/admin');
+   }
+}
+
+sub page : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+   if ( defined $id )
+   {
+      $c->stash->{page} = $c->model('DB::Page')->find($id);
+   }
+
+   $c->forward( '/admin/create_page_form', [ $self->formbuilder ] );
+   $c->stash->{template} = 'admin/page.tt';
+}
+
+sub link : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+   if ( defined $id )
+   {
+      $c->stash->{link} = $c->model('DB::Link')->find($id);
+   }
+
+   $c->forward( '/admin/create_link_form', [ $self->formbuilder ] );
+   $c->stash->{template} = 'admin/link.tt';
+}
+
+sub user : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+   if ( defined $id )
+   {
+      $c->stash->{user} = $c->model('DB::User')->find($id);
+   }
+
+   $c->forward( '/admin/create_user_form', [ $self->formbuilder ] );
+   $c->stash->{template} = 'admin/user.tt';
+}
+
+sub user_commit : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+
+   if ( $self->formbuilder->validate && $self->formbuilder->submitted )
+   {
+      my $user;
+
+      # my $home = $c->config->{home};
+      # my $file = $c->req->params->{picture};
+      # my $username = $c->user->username;
+      # $c->req->uploads->{picture}->copy_to("$home/root/static/users/$username.jpg");
+      #
+      #
+      # my $t = new Image::Thumbnail(
+      #                 module     => 'GD',
+      #                 size       => 55,
+      #                 create     => 1,
+      #                 input      => "$home/root/static/users/$username.jpg",
+      #                 outputpath => "$home/root/static/users/thumb_$username.jpg",
+      #         );
+      #
+
+      if ( defined $id )
+      {
+         $user = $c->model('DB::User')->find($id);
+      }
+      else
+      {
+         $user = $c->model('DB::User')->new( {} );
+      }
+      $user->name( $c->req->params->{username} );
+      $user->password( $c->req->params->{password} );
+      $user->email( $c->req->params->{email} );
+      $user->website( $c->req->params->{website} );
+      $user->insert_or_update();
+
+      $c->res->redirect('/admin');
+   }
+}
+
+sub index : Local Form
+{
+   my ( $self, $c ) = @_;
+
+   #$c->log->info('HOME ' . $c->config->{home});
+   my @articles   = $c->model('DB::Article')->get_latest_articles();
+   my @tags       = $c->model('DB::Tag')->all();
+   my @users      = $c->model('DB::User')->all();
+   my @pages      = $c->model('DB::Page')->all();
+   my @links      = $c->model('DB::Link')->all();
+
+   #my @blogs = $c->user->blogs->all();
+
+   $c->stash->{articles}   = [@articles];
+   $c->stash->{tags}       = [@tags];
+   $c->stash->{users}      = [@users];
+   $c->stash->{alinks}     = [@links];
+   $c->stash->{apages}     = [@pages];
+
+   # $c->stash->{blogs}      = [@blogs];
+
+   $c->forward( '/admin/create_submit_form', [ $self->formbuilder ] );
+   $c->stash->{template} = 'admin/index.tt';
+}
+
+sub edit : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+
+   $c->stash->{article}    = $c->model('DB::Article')->find($id);
+   $c->stash->{tags      } = [ $c->model('DB::Tag')->all() ];
+
+   $c->forward( '/admin/create_submit_form', [ $self->formbuilder ] );
+   $c->stash->{template} = 'admin/entry.tt';
+}
+
+sub destroy : Local
+{
+   my ( $self, $c, $obj, $id ) = @_;
+
+   $c->model( 'RavLog::' . $obj )->find($id)->delete();
+   $c->forward( 'submit', 'cache_refresh' );
+
+   $c->flash->{notice} = "Deleted.";
+   $c->res->redirect('/admin');
+   $c->stash->{template} = 'admin/index.tt';
+}
+
+sub commit : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+   if ( $self->formbuilder->validate && $self->formbuilder->submitted )
+   {
+      $c->stash->{template} = 'admin/commit.tt';
+      $self->save_article(
+         $c,
+         {
+            article_id         => $id,
+            subject    => $c->req->params->{subject},
+            body       => $c->req->params->{body},
+            tags       => $c->req->params->{tags},
+         }
+      );
+      $c->res->redirect('/admin');
+   }
+   else
+   {
+      $c->res->redirect('/admin');
+   }
+
+   $c->res->body('stub');
+}
+
+sub attach_article_to_tags
+{
+   my ( $self, $c, $article, $tags ) = @_;
+
+   my @final_list = ();
+
+   # if its an array do a scan if not , just grab the name
+   if ( ref($tags) eq 'ARRAY' )
+   {
+      for my $a (@$tags)
+      {
+         for my $tag ($a)
+         {
+            my $db_tag = $c->model('DB::Tag')->search( name => $tag )->first();
+            push @final_list, $db_tag;
+
+            #$article->add_to_tags($tag) if ( defined $tag );
+         }
+      }
+   }
+   else
+   {
+      my $tag = $c->model('DB::Tag')->search( name => $tags )->first();
+      push @final_list, $tag if ( defined $tag );
+   }
+   $article->set_tags(@final_list) if scalar(@final_list);
+}
+
+sub save_article : Local
+{
+   my ( $self, $c, $contents ) = @_;
+
+   my $commit;
+   if ( defined $contents->{id} )
+   {
+      $commit = $c->model('DB::Article')->find( $contents->{article_id} );
+   }
+   else
+   {
+      $commit = $c->model('DB::Article')->new( {} );
+   }
+   $commit->subject( $contents->{subject} );
+   $commit->body( $contents->{body} );
+   my $user = $c->model('DB::User')->search( { username => $c->user->username } )->first();
+   $commit->user($user);
+   $commit->insert_or_update();
+   $self->attach_article_to_tags( $c, $commit, $contents->{tags} );
+
+   $c->forward( 'submit', 'cache_refresh', [$commit] );
+
+   return $commit;
+}
+
+sub end : Private
+{
+   my ( $self, $c ) = @_;
+
+   return 1 if $c->req->method eq 'HEAD';
+   return 1 if length( $c->response->body );
+   return 1 if scalar @{ $c->error } && !$c->stash->{template};
+   return 1 if $c->response->status =~ /^(?:204|3\d\d)$/;
+
+   $c->forward( $c->view('TT') );
+}
+
+1;

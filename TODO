@@ -1,0 +1,6 @@
+Remove all traces of FormBuilder
+Switch everything to chained
+See if we can dump the customized CalendarMonthSimple
+See if we can dump old version of Calendar::Simple (0.04!!)
+Make Catalyst::Plugin::Nifty a Moose role (no need at all to be plugin!)
+

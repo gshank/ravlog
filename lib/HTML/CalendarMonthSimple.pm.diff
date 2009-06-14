@@ -1,0 +1,14 @@
+46c46
+<    $self->{'header'} = sprintf("<center><font size=\"+2\">%s %d</font></center>",
+---
+>    $self->{'header'} = sprintf("<h1 class='month_date'>%s %d</h1>",
+261,262c261,262
+<                 $thiscontent = "<p><b><a href=\"".$self->getdatehref($thisday);
+<                 $thiscontent .= "\">$thisday</a></b></p>\n";
+---
+>                 $thiscontent = "<span><a href=\"".$self->getdatehref($thisday);
+>                 $thiscontent .= "\">$thisday</a></span>\n";
+264c264
+<                 $thiscontent = "<p><b>$thisday</b></p>\n";
+---
+>                 $thiscontent = "<span>$thisday</span>\n";

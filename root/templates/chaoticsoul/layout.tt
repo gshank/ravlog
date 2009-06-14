@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title>[% title or site.title %]</title>
+
+	<meta name="ROBOTS" content="ALL" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+	
+	[% stylesheet_link_tag('style.css') %]
+		
+	<link rel="alternate" type="application/rss+xml" title="[% c.config.name %]" href="/feed/articles" />
+	
+	[% ravlog_define_headers %]
+
+	[% c.render_ravlog_headers %]
+	
+ </head>
+ <body>
+	<div id="page">
+		<div id="header">
+			<h1><a href="#">[% c.config.site.name %]</a></h1>		
+			<div id="description">[% c.config.site.description %]</div>
+		</div>
+		
+		<hr />
+		
+		<div id="headerimg" class="clearfix">
+			<div class="image bkgleft"> </div>
+			<div class="image bkgright"> </div>
+		</div>
+		
+		
+			<div id="content" class="narrowcolumn">
+				[% PROCESS 'shared/message.tt' %]
+				[% content %]
+			</div>
+			[% PROCESS 'sidebar.tt' %]
+	</div>
+	[% dp_js_include_tag %]
+ </body>
+</html>

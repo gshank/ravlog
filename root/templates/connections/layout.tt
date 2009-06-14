@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title>[% title or site.title %]</title>
+
+	<meta name="ROBOTS" content="ALL" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+	
+	[% stylesheet_link_tag('style.css') %]
+		
+	<link rel="alternate" type="application/rss+xml" title="[% c.config.name %]" href="/feed/articles" />
+	
+	[% ravlog_define_headers %]
+
+	[% c.render_ravlog_headers %]
+	
+ </head>
+ <body>
+	<div id="rap">
+		<div id="header">
+			<ul id="topnav">
+				<li><a href="/" id="navHome" title="Posted Recently" accesskey="h">Home</a> |</li>
+				[% FOREACH page = pages %]
+				<li id="[% page.name %]"class='[% activelink.${c.ravlog_txt_to_url(page.name)} %]' ><a href="[% c.base_uri %]/page/[% c.ravlog_txt_to_url(page.name) %]">[% page.name %]</a> |</li>
+				[% END %]
+			</ul>
+			<h1><a href="/">[% c.config.site.name %]</a></h1>		
+			<div id="desc">[% c.config.site.description %]</div>
+		</div>
+		<div id="main">
+			<div id="content">
+				[% PROCESS 'shared/message.tt' %]
+				[% content %]
+			</div>
+			[% PROCESS 'sidebar.tt' %]
+			<p id="footer">Design Downloaded from <a href="http://www.vanillamist.com" title="Vanilla Mist">www.vanillamist.com</a></p>
+		</div>
+	</div>
+	[% dp_js_include_tag %]
+ </body>
+</html>

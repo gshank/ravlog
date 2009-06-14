@@ -1,0 +1,4 @@
+<div id="footer">
+	<div id="powered_by"><span>| Powered by <a href="http://www.catalystframework.org/">Catalyst</a> | <a href="http://www.freebsd.org/">FreeBSD</a> | <a href="http://www.postgresql.org/">PostgreSQL</a> | <a href="http://lighttpd.net/">Lighttpd</a> |</span>
+	</div>
+</div>

@@ -1,0 +1,16 @@
+<div id="sidebar">
+	[% PROCESS 'shared/search_list.tt' %]
+	[% PROCESS 'shared/calendar_list.tt' %]
+	<h2>Pages</h2>
+	<ul>
+		<li><a href="/" id="navHome" title="Posted Recently" accesskey="h">Home</a></li>
+		[% FOREACH page = pages %]
+		<li id="[% page.name %]"class='[% activelink.${c.ravlog_txt_to_url(page.name)} %]' ><a href="[% c.base_uri %]/page/[% c.ravlog_txt_to_url(page.name) %]">[% page.name %]</a></li>
+		[% END %]
+	</ul>
+	[% PROCESS 'shared/tags_list.tt' %]
+	[% PROCESS 'shared/archives_list.tt' %]
+	[% PROCESS 'shared/links_list.tt' %]
+	[% PROCESS 'shared/syndicate_list.tt' %]
+	[% PROCESS 'shared/login_list.tt' %]
+</div>

@@ -1,0 +1,151 @@
+package RavLog::Controller::Submit;
+
+use strict;
+use warnings;
+use base 'Catalyst::Controller::FormBuilder::DBIC';
+
+sub captcha : Local
+{
+   my ( $self, $c ) = @_;
+   $c->create_captcha();
+}
+
+sub test : Local Form
+{
+   my ( $self, $c, $id ) = @_;
+   $id = 0 unless defined $id;
+
+   if ( $self->formbuilder->validate && $self->formbuilder->submitted )
+   {
+   }
+   else
+   {
+      my $article = $c->model('DB::Article')->find_or_new( { article_id => $id } );
+      $self->create_form(
+         {
+            object => $article,
+            action => '/submit'
+         }
+      );
+   }
+
+   $c->stash->{template} = 'test.tt';
+}
+
+sub create_comment_form : Local Form
+{
+   my ( $self, $c, $form, $id ) = @_;
+
+   $form->field(
+      name     => 'name',
+      required => 1,
+      label    => 'Name',
+      size     => 25
+   );
+   $form->field( name => 'email', label => 'Email',   size => 25 );
+   $form->field( name => 'url',   label => 'Website', size => 25 );
+
+   $form->field(
+      name     => 'comment',
+      type     => 'textarea',
+      required => 1,
+      label    => 'Body',
+      cols     => 30,
+      rows     => 10
+   );
+
+   $form->field(
+      name     => 'verification',
+      label    => 'Verification',
+      size     => 25,
+      required => 1
+   );
+   # make sure no trailing slashes happen.
+   $id = '/' . $id;
+   $form->action( '/submit/comment' . $id );
+   $form->method('post');
+
+}
+
+sub view : Global Form
+{
+   my ( $self, $c, $id ) = @_;
+
+   my $article =
+      $c->model('DB::Article')
+#      ->find($id);
+      ->search( { 'subject' => { like => $c->nifty_url_to_query($id) } } )->first();
+
+   $c->stash->{articles} = $article;
+   $c->stash->{title}    = $article->subject();
+   $c->stash->{comments} = [ $article->comments->all() ];
+
+   $c->forward( '/comment/create', [$article->id ] );
+
+   # re-using my index view, might as well
+   #to keep a consistent view through out the site.
+   $c->stash->{template} = 'index.tt';
+}
+
+sub comment : Local Form
+{
+   my ( $self, $c, $from, $id ) = @_;
+
+   my $commit;
+   my $article = $c->model('DB::Article')->find($from);
+   if (  $self->formbuilder->validate
+      && $c->validate_captcha( $c->req->param('verification') ) )
+   {
+      if ( defined $id )
+      {
+         $commit = $c->model('DB::Comment')->find($id);
+      }
+      else
+      {
+         $commit = $c->model('DB::Comment')->new( {} );
+         $commit->article($article);
+      }
+      $commit->name( $c->req->params->{name} );
+      $commit->email( $c->req->params->{email} );
+      if ( $c->req->params->{url} !~ /http/i )
+      {
+         $commit->url( 'http://' . $c->req->params->{url} );
+      }
+      else
+      {
+         $commit->url( $c->req->params->{url} );
+      }
+      $commit->comment( $c->req->params->{comment} );
+      $commit->insert_or_update();
+
+      $self->cache_refresh( $c, $article );
+      $c->res->redirect( '/view/' . $c->nifty_txt_to_url( $article->subject ) );
+   }
+   else
+   {
+      $c->flash->{notice} = 'Incorrect verification'
+         if ( !$c->validate_captcha( $c->req->param('verification') ) && $c->user );
+      $c->res->redirect( '/view/' . $c->nifty_txt_to_url( $article->subject ) );
+   }
+
+   $c->res->body('stub');
+}
+
+sub cache_refresh
+{
+   my ( $self, $c, $item ) = @_;
+
+   return;
+   $c->cache->remove('front_page_articles');
+   $c->clear_cached_page('/');
+   if ( ref($item) eq "RavLog::Model::DB::Article" )
+   {
+      $c->clear_cached_page( '/view/' . $c->nifty_txt_to_url( $item->subject ) );
+   }
+   if ( ref($item) eq "RavLog::Model::DB::Page" )
+   {
+      $c->clear_cached_page( '/page/' . $c->nifty_txt_to_url( $item->name ) );
+   }
+}
+
+1;

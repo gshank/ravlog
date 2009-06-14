@@ -1,0 +1,26 @@
+div.nicetitle {
+	z-index: 30;
+    position: absolute;
+    padding: 4px;
+    top: 0px;
+    left: 0px;
+    color: white;
+    font-size: 13px;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    width: 25em;
+    font-weight: bold;
+    background: url(/static/images/ntbg.png);
+
+    /* Mozilla proprietary */
+    -moz-border-radius: 12px;
+}
+div.nicetitle p {
+	color: white;
+    margin: 0; padding: 0 3px;
+}
+div.nicetitle p.destination {
+	color: white;
+    font-size: 9px;
+    text-align: left;
+    padding-top: 3px;
+}

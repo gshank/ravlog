@@ -1,0 +1,52 @@
+[% USE Textile2 -%]
+<br />
+[% FOREACH article = articles %]
+	<div class="post">
+	[% url = '/view/' _ c.ravlog_txt_to_url(article.subject,article.id) %]
+	<div class="post-info">
+		<h2 class="post-title">
+			<a title="[% c.uri_for(url) %]" href="[% url %]">[% article.subject %]</a>
+		</h2> <br/>
+		Posted by [% article.user.username %] <span class="post-date">[% c.render_ravlog_date(article.created_at) %]</span> under  
+		[% FOREACH tag = article.tags %] 
+			<a href="/tag/[% c.ravlog_txt_to_url(tag.name) %]">[% tag.name %]</a>
+		[% END %]
+		<br/>
+		<a href="[% c.base_uri %]/feed/comments/[% c.ravlog_txt_to_url(article.subject) %]"><img src="/static/images/rss.png" alt="RSS" /> [% article.subject %]'s RSS feed</a> &nbsp;
+		
+		[% IF article.comments_rs.count > 0 %]
+		<a href="[% url %]">[[% article.comments_rs.count %]] comments</a>
+		[% END %]
+		
+	</div>
+	
+	<div class="post-content">
+		[% article.textilize('body') %]
+	</div>
+	<div class="post-footer">&nbsp;</div>
+	</div>
+	<br />
+[% END %]
+<div id="comments"></div>
+
+<ol class="commentlist">
+[% FOREACH comment = comments %]
+	<li class="alt">
+	[% IF loop.index % 2 %]
+	<div class="comment">
+[% ELSE %]
+	<div class="comment_alt">
+[% END %]
+	<h3><a title="[% comment.url %]" href="[% comment.url %]">[% comment.name %]</a></h3>
+	<small class="commentmetadata">Posted [% c.render_ravlog_date(comment.created_at) %]</small>
+	<p>[% comment.textilize('comment') %]</p>
+	</div>
+	</li>
+[% END %]
+</ol>
+[% IF FormBuilder %]
+<h3 id="respond">Leave a Reply</h3>
+[% FormBuilder.render %]
+<p>Type the following in the verification box</p>
+<img src="/submit/captcha" alt="" />
+[% END %]

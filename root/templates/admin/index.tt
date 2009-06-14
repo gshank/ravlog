@@ -1,0 +1,261 @@
+&nbsp;
+<br class="clear" />
+<style type="text/css" media="screen">
+  @import "/static/dojo/dojo/resources/dojo.css";
+	@import "/static/dojo/dijit/themes/tundra/tundra.css";
+	
+	.dijitAlignTop {
+	  background-color: #F3F3F3;
+	}
+	
+	.dijitTabActive {
+	  background-color: #FFFFFF;
+	}
+	
+	.dijitTabInnerDiv {
+	  font-family: Arial, "MS Trebuchet", sans-serif;
+	  font-size: 16px;
+	  padding-left: 10px;
+	  padding-right: 10px;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+	}
+	
+</style>
+<script type="text/javascript" charset="utf-8">
+  dojo.require("dijit.layout.TabContainer");
+  dojo.require("dijit.layout.ContentPane");
+</script>
+
+[% FormBuilder.jshead %]
+
+<br class="clear" />
+
+<div id="mainTabContainer" dojoType="dijit.layout.TabContainer" style="width: 100%; height: 640px;">
+	<script>djConfig.searchIds.push("mainTabContainer");</script>
+	<div id="write_blog" dojoType="dijit.layout.ContentPane" label="Write Blog">
+		<script>djConfig.searchIds.push("write_blog");</script>
+		&nbsp;
+		<div class="padding">
+				[% FormBuilder.start %]
+		      	<div id="form">
+		        [% FOREACH field IN FormBuilder.fields %]
+				[% IF field.name == "tags" %]
+					<p>
+					<a href="#" onclick="toggle_tags(); return false;">Display Tags</a> 
+					<div id="select_tags" style="display: none;">
+			            [% field.tag %]
+					</div>
+					</p>
+				[% ELSIF field.name == "body" %]
+					<p>
+					<strong>Editor Type: </strong>
+					<select name="type" onChange="switch_editor(this.value);">
+						<option value="textile">Textile / Plain</option>
+						<option value="wysiwyg">WYSIWYG Editor</option>	
+					</select>
+					</p>
+					<p id="pborder" style="width: 800px;">
+						<textarea id="body" name="body" style="width: 800px; height: 300px;">[% field.value %]</textarea>
+						</p>
+					</p>
+				[% ELSE %]
+		        <div id="[%- field.name -%]">
+		          <div class="label">
+					[% IF field.required %]
+						<span><strong>[% field.label %]</strong></span>
+					[% ELSE %]
+						<span>[% field.label %]</span>
+					[% END %]
+		          </div>
+		          <div class="field">
+		            [% field.tag %]
+		          </div>
+		        </div>
+				[% END %]
+		        [% END %]
+		        <div id="submit">[% FormBuilder.submit %]</div>
+		        <div id="reset">[% FormBuilder.reset %]</div>
+		        <div id="state">
+		          [% FormBuilder.statetags  %]
+		          [% FormBuilder.keepextras %]
+		          [% FormBuilder.end        %]
+		        </div>			
+			</div>
+		</div>
+	</div>
+	
+	<div id="recent_blog" dojoType="dijit.layout.ContentPane" label="Recent Entries">
+		<script>djConfig.searchIds.push("recent_blog");</script>
+		&nbsp;
+		<div class="padding">
+			<p>
+				[% IF articles %]
+					<h3>Recent Posts</h3><br/><br/>
+					<div id="jaxdate"></div>
+					<table cellpadding="0" cellspacing="0">
+						<th>Id</th>
+						<th>Subject</th>
+						<th>Clear Cache</th>
+						<th>View</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					[% FOREACH article = articles %]
+						[% IF loop.index % 2 %]
+							[% class="darken" %]
+						[% ELSE %]
+							[% class="" %]
+						[% END %]
+						<tr>
+							<td id="id" class="[% class %]">[% article.id %]</td>
+							<td class="[% class %]" id='subject'>[% article.subject %]</td>
+							<td id="cache" class="[% class %]"><a href="javascript:clear_cache([% article.id %]);">Clear Cache</a></td>
+							<td id="view" class="[% class %]"><a href="/view/[% c.ravlog_txt_to_url(article.subject,article.id) %]">View</a></td>
+							<td id="edit" class="[% class %]"><a href="/admin/edit/[% article.id %]">Edit</a></td>
+							<td id="delete" class="[% class %]"><a href="/admin/destroy/Articles/[% article.id %]">Delete</a></td>
+						</tr>
+					[% END %]
+					</table>
+				[% END %]
+			</p>
+		</div>
+	</div>
+	
+	<div id="users" dojoType="dijit.layout.ContentPane" refreshOnShow="true" label="Users">
+		<script>djConfig.searchIds.push("users");</script>
+		&nbsp;
+		<div class="padding">
+			<p>
+				<br />
+				<a href="/admin/user">Create new user</a><br />
+				<br />
+				<table cellpadding="0" cellspacing="0">
+					<th>Id</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Website</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				[% FOREACH user = users %]
+				[% IF loop.index % 2 %]
+					[% class="darken" %]
+				[% ELSE %]
+					[% class="" %]
+				[% END %]
+					<tr>
+						<td class="[% class %]" id="id">[% user.id %]</td>
+						<td class="[% class %]" id="name">[% user.username %]</td>
+						<td class="[% class %]" id="email"><a href="mailto:[% user.email %]">[% user.email %]</a></td>
+						<td class="[% class %]" id="website"><a href="[% user.website %]">[% user.website %]</a></td>
+						<td class="[% class %]" id="edit"><a href="/admin/user/[% user.id %]">Edit</a></td>
+						<td class="[% class %]" id="delete"><a href="/admin/destroy/Users/[% user.id %]">Delete</a></td>
+					</tr>
+				[% END %]
+				</table>
+			</p>
+		</div>
+	</div>
+	
+	
+	<div id="tags" dojoType="dijit.layout.ContentPane" label="Tags">
+		<script>djConfig.searchIds.push("tags");</script>
+			&nbsp;
+			<div class="padding">
+				<p>
+			<br />
+			<a href="/admin/tag">Create new tag</a><br/>
+			<br />
+			<table cellpadding="0" cellspacing="0">
+				<th>Id</th>
+				<th>Tag</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			[% FOREACH tag = tags %]
+				[% IF loop.index % 2 %]
+					[% class="darken" %]
+				[% ELSE %]
+					[% class="" %]
+				[% END %]
+				<tr>
+					<td class="[% class %]" id="id">[% tag.id %]</td>
+					<td class="[% class %]" id="name">[% tag.name %]</td>
+					<td class="[% class %]" id="edit"><a href="/admin/tag/[% tag.id %]">Edit</a></td>
+					<td class="[% class %]" id="delete"><a href="/admin/destroy/tags/[% tag.id %]">Destroy</a></td>
+				</tr>
+			[% END %]
+			</table>
+		</p>
+		</div>
+	</div>
+	
+	<div id="pages" dojoType="dijit.layout.ContentPane" label="Pages">
+		<script>djConfig.searchIds.push("pages");</script>
+			&nbsp;
+			<div class="padding">
+				<p>
+			<br />
+			<a href="/admin/page">Create new page</a><br/>
+			<br />
+			<table cellpadding="0" cellspacing="0">
+				<th>Id</th>
+				<th>Page Name</th>
+				<th>Clear Cache</th>
+				<th>View</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			[% FOREACH page = apages %]
+				[% IF loop.index % 2 %]
+					[% class="darken" %]
+				[% ELSE %]
+					[% class="" %]
+				[% END %]
+				<tr>
+					<td class="[% class %]" id="id">[% page.id %]</td>
+					<td class="[% class %]" id="name">[% page.name %]</td>
+					<td class="[% class %]" id="cache"><a href="javascript:clear_cache_page([% page.id %]);">Clear Cache</a></td>
+					<td class="[% class %]" id="view"><a href="/view/[% c.ravlog_txt_to_url(page.name,page.id) %]">View</a></td>
+					<td class="[% class %]" id="edit"><a href="/admin/page/[% page.id %]">Edit</a></td>
+					<td class="[% class %]" id="delete"><a href="/admin/destroy/Pages/[% page.id %]">Destroy</a> </td>
+				</tr>
+			[% END %]
+			</table>
+		</p>
+		</div>
+	</div>
+	
+	<div id="links" dojoType="dijit.layout.ContentPane" label="Links">
+		<script>djConfig.searchIds.push("links");</script>
+			&nbsp;
+				<div class="padding">
+					<p>
+					<br />
+					<a href="/admin/link">Create Link</a><br/>
+					<br />
+					<table cellpadding="0" cellspacing="0">
+						<th>Id</th>
+						<th>Name</th>
+						<th>Url</th>
+						<th>Description</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					[% FOREACH link = alinks %]
+						[% IF loop.index % 2 %]
+							[% class="darken" %]
+						[% ELSE %]
+							[% class="" %]
+						[% END %]
+						<tr>
+							<td class="[% class %]" id="id">[% link.id %]</td>
+							<td class="[% class %]" id="name">[% link.name %]</td>
+							<td class="[% class %]" id="name"><a href="[% link.url %]">[% link.url %]</a></td>
+							<td class="[% class %]" id="name">[% link.description %]</td>
+							<td class="[% class %]" id="edit"><a href="/admin/link/[% link.id %]">Edit</a></td>
+							<td class="[% class %]" id="delete"><a href="/admin/destroy/Links/[% link.id %]">Destroy</a> </td>
+						</tr>
+					[% END %]
+					</table>
+					</p>
+			</div>
+	</div>
+
+</div>

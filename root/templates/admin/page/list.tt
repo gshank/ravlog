@@ -1,0 +1,26 @@
+<h1>Page list</h1>
+
+[% PROCESS admin/nav.tt %]
+
+<p>
+  <a href="[% c.uri_for_action('/admin/page/create') %]">Create Page</a>
+</p>
+
+<table cellpadding="2" cellspacing="1"> 
+<th>Name</th>
+<th>Edit</th>
+<th>Delete</th>
+
+[% WHILE (page = pages.next) %]
+
+<tr>
+<td id="name" class="">[% page.name %]</td>
+<td id="edit" class=""><a href="[% c.uri_for_action('/admin/page/edit', [page.id]) %]">Edit</a></td>
+<td id="delete" class=""><a href="[% c.uri_for_action('/admin/page/delete', [page.id]) %]">Delete</a></td>
+</tr>
+
+[% END %]
+
+</table>
+  
+

@@ -1,0 +1,27 @@
+<h1>User list</h1>
+
+[% PROCESS admin/nav.tt %]
+
+<p>
+  <a href="[% c.uri_for_action('/admin/user/create') %]">Create User</a>
+</p>
+
+<table cellpadding="2" cellspacing="1"> 
+<th>User Name</th>
+<th>Email</th>
+<th>Edit</th>
+<th>Delete</th>
+
+[% WHILE (user = users.next) %]
+
+<tr>
+<td id="name" class="">[% user.username %]</td>
+<td id="name" class="">[% user.email %]</td>
+<td id="edit" class=""><a href="[% c.uri_for_action('/admin/user/edit', [user.id]) %]">Edit</a></td>
+<td id="delete" class=""><a href="[% c.uri_for_action('/admin/user/delete', [user.id]) %]">Delete</a></td>
+</tr>
+
+[% END %]
+
+</table>
+  

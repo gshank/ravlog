@@ -1,0 +1,6 @@
+<h1>View Article</h1>
+[% PROCESS admin/nav.tt %]
+
+<h2>[% article.subject %]</h2>
+
+<p>[% article.body %]</p>

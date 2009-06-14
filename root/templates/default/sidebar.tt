@@ -1,0 +1,28 @@
+<div id="sidebar">
+	<div id="search_pane">
+	<form action="/search" method="post">
+	<p>
+		<span>Search:</span>
+		<input type="text" name="phrase" size="20" onkeyup="check_articles(this);"/>
+		<div style="display: none;" id="search_board"></div>
+	</p>
+	</form>
+	</div>
+	<br class="clear"/>
+	<div style="padding-left: 20px">
+	<h2>Calendar</h2>
+			<div id="calendar">
+					[% calendar %]
+			</div>
+	<h3>Tags</h3>
+	[% PROCESS 'shared/tags_list.tt' %]
+	<h3>Archives</h3>
+	[% PROCESS 'shared/archives_list.tt' %]
+	<h3>Links</h3>
+	[% PROCESS 'shared/links_list.tt' %]
+	<h3>Syndicate</h3>
+	[% PROCESS 'shared/syndicate_list.tt' %]
+	<h3>Meta</h3>
+	[% PROCESS 'shared/login_list.tt' %]
+	</div>
+</div>

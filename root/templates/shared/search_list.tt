@@ -1,0 +1,13 @@
+<h2>Search</h2>
+<ul>
+	<li>
+<div id="search_pane">
+<form action="/search" method="post">
+<p>
+	<input type="text" name="phrase" size="20" onkeyup="check_articles(this);"/>
+	<div style="display: none;" id="search_board"></div>
+</p>
+</form>
+</div>
+	</li>
+</ul>

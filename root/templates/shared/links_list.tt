@@ -1,0 +1,6 @@
+<h2>Links</h2>
+<ul>
+[% FOREACH link = links %]
+	<li><a title="[% link.description %]" href="[% link.url %]">[% link.name %]</a></li> 
+[% END %]
+</ul>

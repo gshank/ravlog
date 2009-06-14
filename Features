@@ -1,0 +1,18 @@
+        
+Set Page titles depending on subject or page name. (SEO optimization)
+Two ported Wordpress themes, chaotic soul and connections.
+Refactored template support for easier Wordpress theme porting.
+Live Search
+Live Sort of the category list
+Ability to add and delete links.
+Site title configurable in YAML
+Ability to create pages not in the tab drawer.
+Captcha image verification
+Tags
+On site calendar
+RSS Syndication throughout the site 
+Human readable *cachable* time information.
+Human readable URLs			/view/<article_subject>
+Structured archive URLs   	/archive/<year>/<month>/<day>
+Self contained on-site search
+By-the-month Calendar

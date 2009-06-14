@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title>[% title or site.title %]</title>
+
+	<meta name="ROBOTS" content="ALL" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+			
+	<link rel="alternate" type="application/rss+xml" title="[% c.config.name %]" href="/feed/articles" />
+
+	[% ravlog_define_headers %]
+
+	[% c.render_ravlog_headers %]
+	
+	[% stylesheet_link_tag('master.css') %]
+   [% sh_js_include %]
+#   [% sh_css_include %]
+	
+ </head>
+ <body>
+	<div id="main">
+			<div id="tabs">
+				<div class="body_padding" style="float: left;">
+					<div style="padding-top: 0px; padding-bottom: 10px;">
+					<h1>[% c.config.site.name %]</span></h1>
+					</div>
+				</div>
+				<br class="clear"/>
+				<ul id="tab_content">
+				<li id="home" class='[% activelink.home %]'><a href="/">Home</a></li>
+				[% FOREACH page = pages %]
+				<li id="[% page.name %]"class='[% activelink.${c.ravlog_txt_to_url(page.name)} %]' ><a href="[% c.base_uri %]/page/[% c.ravlog_txt_to_url(page.name) %]">[% page.name %]</a></li>
+				[% END %]
+				</ul>
+		</div>
+			[% PROCESS 'shared/message.tt' %]
+			[% IF sidebar %]
+			<div id="content">
+			[% content %]
+			</div>
+			[% ELSE %]
+				&nbsp;
+			<div style="padding-left: 30px; width: 90%;">
+			[% content %]
+			</div>
+			[% END %]
+			[% IF sidebar %]
+				[% PROCESS 'sidebar.tt' %]
+			[% END %]
+			<br class="clear"/>
+			<br /><br />
+			</div>
+			[% PROCESS 'footer.tt' %]
+ </body>
+</html>

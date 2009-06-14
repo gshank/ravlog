@@ -1,0 +1,118 @@
+#calendar {
+}
+
+#calendar th {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#calendar h1 {
+    font-size: 12px;
+}
+
+#calendar td {
+	font-size: 12px;
+	color: #666;
+}
+
+blockquote {
+	margin: 15px 30px 0 10px;
+	padding-left: 10px;
+	background: #fefefe;
+	border-left: 3px solid #999999;
+	font-style: oblique;
+}
+
+pre {
+	border: 1px solid;
+	min-height: 60px;
+	width: 100%;
+	overflow: auto;
+	background-color: #eae7de;
+}
+
+.code {
+	border: 1px solid;
+	min-height: 60px;
+	overflow: auto;
+    background-color: #eae7de;
+}
+
+img { border: 0; }
+
+.code .key1 {
+	color: #0000FF;
+}
+
+.code .key2 {
+	color: #0000FF;
+}
+
+.code .key3 {
+	color: #fb389a;
+}
+
+.code .string {
+	color: #14a042;
+}
+
+span.Alert {
+ color: #0000ff;
+}
+span.BaseN {
+ color: #007f00;
+}
+span.BString {
+ color: #c9a7ff;
+}
+span.Char {
+ color: #ff00ff;
+}
+span.Comment {
+ color: #6b766b;
+}
+span.DataType {
+ color: #000;
+}
+span.DecVal {
+ color: #f0f;
+}
+span.Error {
+ color: #ff0000;
+}
+span.Float {
+ color: #5599ff;
+}
+span.Function {
+ color: #ff7d00;
+}
+span.IString {
+ color: #ff0000;
+}
+span.Keyword {
+ color: #2400ff;
+ font-weight: bold;
+}
+span.Operator {
+ color: #00ff33;
+ font-weight: bold;
+}
+span.Others {
+ color: #b03060;
+}
+span.RegionMarker {
+ color: #96b9ff;
+}
+span.Reserved {
+ color: #9b30ff;
+ font-weight: bold;
+}
+span.String {
+ color: #00ca35;
+}
+span.Variable {
+ color: #2400ff;
+}
+span.Warning {
+ color: #0000ff;
+}

@@ -1,0 +1,26 @@
+<h1>Link list</h1>
+
+[% PROCESS admin/nav.tt %]
+
+<p>
+  <a href="[% c.uri_for_action('/admin/link/create') %]">Create Link</a>
+</p>
+
+<table cellpadding="2" cellspacing="1"> 
+<th>Name</th>
+<th>Edit</th>
+<th>Delete</th>
+
+
+[% FOREACH link IN links %]
+
+<tr>
+<td id="name" class="">[% link.name %]</td>
+<td id="edit" class=""><a href="[% c.uri_for_action('/admin/link/edit', [link.id]) %]">Edit</a></td>
+<td id="delete" class=""><a href="[% c.uri_for_action('/admin/link/delete', [link.id]) %]">Delete</a></td>
+</tr>
+
+[% END %]
+
+</table>
+  

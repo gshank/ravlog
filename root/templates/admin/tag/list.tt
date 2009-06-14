@@ -1,0 +1,25 @@
+<h1>Tags</h1>
+
+[% PROCESS admin/nav.tt %]
+
+<p>
+  <a href="[% c.uri_for_action('/admin/tag/create') %]">Create Tag</a>
+</p>
+
+<table cellpadding="2" cellspacing="1"> 
+<th>Name</th>
+<th>Edit</th>
+<th>Delete</th>
+
+
+[% WHILE (tag = tags.next) %]
+
+<tr>
+<td id="name" class="">[% tag.name %]</td>
+<td id="edit" class=""><a href="[% c.uri_for_action('/admin/tag/edit', [tag.id]) %]">Edit</a></td>
+<td id="delete" class=""><a href="[% c.uri_for_action('/admin/tag/delete', [tag.id]) %]">Delete</a></td>
+</tr>
+
+[% END %]
+
+</table>

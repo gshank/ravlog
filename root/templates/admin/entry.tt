@@ -1,0 +1,52 @@
+<script type="text/javascript">
+dojo.require("dojo.widget.*");
+dojo.require("dojo.widget.Editor2");
+</script>
+
+<div class="padding">
+		[% FormBuilder.start %]
+      	<div id="form">
+        [% FOREACH field IN FormBuilder.fields %]
+		[% IF field.name == "tags" %]
+			<p>
+			<a href="#" onclick="toggle_tags(); return false;">Display Tags</a> 
+			<div id="select_tags" style="display: none;">
+	            [% field.tag %]
+			</div>
+			</p>
+		[% ELSIF field.name == "body" %]
+			<p>
+			<strong>Editor Type: </strong>
+			<select name="type" onChange="switch_editor(this.value);">
+				<option value="textile">Textile / Plain</option>
+				<option value="wysiwyg">WYSIWYG Editor</option>	
+			</select>
+			</p>
+			<p id="pborder" style="width: 800px;">
+				<textarea id="body" name="body" style="width: 800px; height: 300px;">[% field.value %]</textarea>
+				</p>
+			</p>
+		[% ELSE %]
+        <div id="[%- field.name -%]">
+          <div class="label">
+			[% IF field.required %]
+				<span><strong>[% field.label %]</strong></span>
+			[% ELSE %]
+				<span>[% field.label %]</span>
+			[% END %]
+          </div>
+          <div class="field">
+            [% field.tag %]
+          </div>
+        </div>
+		[% END %]
+        [% END %]
+        <div id="submit">[% FormBuilder.submit %]</div>
+        <div id="reset">[% FormBuilder.reset %]</div>
+        <div id="state">
+          [% FormBuilder.statetags  %]
+          [% FormBuilder.keepextras %]
+          [% FormBuilder.end        %]
+        </div>			
+	</div>
+</div>

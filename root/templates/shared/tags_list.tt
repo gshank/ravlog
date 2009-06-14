@@ -1,0 +1,12 @@
+<h2>Tags</h2>
+<p style="font-size: 11px; display: inline;"><span class="special_text">Sort</span> [ <a href="#" id="alpha">alpha</a> | <a href="#" id="freq" class="selected">freq</a> ]</p>
+<ul>
+<div id="tag_list">
+[% FOREACH tag = tags %]
+	<li><a title="[% tag.name %]" href="/tag/[% c.ravlog_txt_to_url(tag.name) %]">[% tag.name %]</a></li>
+[% END %]
+<script type="text/javascript" charset="utf-8">
+	toggle_tag_list();
+</script>
+</div>
+</ul>

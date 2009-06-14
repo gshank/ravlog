@@ -1,0 +1,36 @@
+<div id="recent_blog" label="Recent Entries">
+<div class="padding">
+<p>
+
+[% PROCESS admin/nav.tt %]
+
+<h3>Recent Articles</h3><br/><br/>
+<div id="jaxdate"></div>
+<table cellpadding="2" cellspacing="1"> 
+<th>Id</th>
+<th>Subject</th>
+<th>Clear Cache</th>
+<th>View</th>
+<th>Edit</th>
+<th>Delete</th>
+
+
+[% WHILE (article = articles.next) %]
+
+<tr>
+<td id="id" class="">[% article.id %]</td>
+<td class="" id='subject'>[% article.subject %]</td>
+<td id="cache" class=""><a href="javascript:clear_cache(4);">Clear Cache</a></td>
+<td id="view" class=""><a href="[% c.uri_for_action('/admin/article/view', [article.id] ) %]">View</a></td>
+<td id="edit" class=""><a href="[% c.uri_for_action('/admin/article/edit', [article.id]) %]">Edit</a></td>
+<td id="delete" class=""><a href="[% c.uri_for_action('/admin/article/delete', [article.id]) %]">Delete</a></td>
+</tr>
+
+[% END %]
+
+</table>
+
+</p>
+</div>
+</div>
+

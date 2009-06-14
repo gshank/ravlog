@@ -1,0 +1,9 @@
+<h2>Syndicate</h2>
+<ul>
+<li><a href="[% c.base_uri %]/feed/articles"><img src="/static/images/rss.png" alt="RSS" /> Articles</a></li>
+<li><a href="[% c.base_uri %]/feed/comments"><img src="/static/images/rss.png" alt="RSS" /> Comments</a></li>
+
+[% IF rss %]
+<li><a href="[% c.base_uri %]/feed/articles/[% c.ravlog_txt_to_url(rss) %]"><img src="/static/images/rss.png" alt="RSS" /> [% rss %]</a></li>
+[% END %]
+</ul>

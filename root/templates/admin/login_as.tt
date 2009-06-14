@@ -1,0 +1,22 @@
+&nbsp;
+<div id="login_box">
+<form action="/login/login_as" method="post">
+				<h1>Authentication:</h1>
+				<p>
+				<span>Username:</span> <br/>
+				<input type="text" name="username" id="username"/>
+				</p>
+				<p>
+				<span>Password:</span> <br/>
+				<input type="password" name="password" id="password"/>
+				</p>
+			<input type="submit" value="Login" />
+</form>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	function init () {
+		dojo.byId('login').focus();
+	}
+	dojo.addOnLoad(init);
+</script>

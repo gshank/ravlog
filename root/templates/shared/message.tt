@@ -1,0 +1,14 @@
+[% IF c.flash.notice %]
+        <br />
+				<br class="clear"/>
+				<br />
+        <ul id="error_content">
+                <li id="one">
+                        <h3>Notice</h3>
+                        <div>
+                                <p>[% c.flash.notice %]</p>
+                        </div>
+                </li>
+        </ul>
+        <br style="clear" />
+[% END %]
