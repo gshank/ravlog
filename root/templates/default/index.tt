@@ -1,12 +1,15 @@
 <br />
 [% FOREACH article = articles %]
 	<div class="post">
-	[% url = c.ravlog_txt_to_url(article.subject,article.id) _ '/view' %]
+	[% url = c.ravlog_txt_to_url(article.subject, article.id) _ '/view' %]
 	<div class="post-info">
 		<h2 class="post-title">
 			<a title="[% c.uri_for(url) %]" href="[% url %]">[% article.subject %]</a>
 		</h2> <br/>
-		<span>Posted by [% article.user.username %] </span><p class="post-date"> [% c.render_ravlog_date(article.created_at) %]</p><br/>
+		<span>Posted by [% article.user.username %]&nbsp;&nbsp;&nbsp;</span>
+      <p class="post-date"> 
+         [% c.render_ravlog_date(article.created_at) %]
+      </p><br/>
 		<span>Tags:</span>
 		[% FOREACH tag = article.tags %] 
 			<a href="/tag/[% c.ravlog_txt_to_url(tag.name) %]">[% tag.name %]</a>

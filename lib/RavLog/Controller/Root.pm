@@ -49,26 +49,6 @@ sub page : Local
    $c->stash->{template} = 'page.tt';
 }
 
-sub blog : Local
-{
-   my ( $self, $c, $blog ) = @_;
-
-   #TODO add blog/some_group_blog
-   $c->res->body('Not implemented yet.');
-}
-
-sub blogs : Local
-{
-   my ( $self, $c ) = @_;
-
-   my @blogs = $c->model('DB::Blog')->all();
-   $c->stash->{blogs}    = [@blogs];
-   $c->stash->{template} = 'blogs.tt';
-   $c->forward( $c->view('TT') );
-
-   #$c->res->body('<p>Multi User Blogs not implemented yet.</p>')
-}
-
 sub archived : Local
 {
    my ( $self, $c, $year, $month, $day ) = @_;
@@ -81,9 +61,8 @@ sub archived : Local
 sub default : Local
 {
    my ( $self, $c ) = @_;
-$DB::single=1;
-   my @articles = $c->model('DB::Article')->get_latest_articles();
 
+   my @articles = $c->model('DB::Article')->get_latest_articles();
    $c->stash->{articles} = [@articles];
    $c->stash->{template} = 'index.tt';
 }
@@ -100,7 +79,6 @@ sub links
 {
    my ( $self, $c ) = @_;
    my @links = $c->model('DB::Link')->search( undef, { order_by => 'link_id desc' } )->all();
-
    $c->stash->{links} = [@links];
 }
 

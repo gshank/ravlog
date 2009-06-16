@@ -18,6 +18,7 @@ my @articles = $schema->resultset('Article')->get_latest_articles;
 foreach my $article (@articles)
 {
    print $article->subject, "\n";
+   print $article->user->username, "\n";
 }
 
 my $article = $schema->resultset('Article')->new_result({});

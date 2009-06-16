@@ -23,12 +23,18 @@
 			MACRO ravlog_define_headers
 			BLOCK;
 			  dp_css_include_tag;
-				'<script src="/static/javascripts/application.js" type="text/javascript"></script>';
-				'<script src="/static/javascripts/nicetitles.js" type="text/javascript"></script>';
-				'<script src="/static/javascripts/ravlogcube.js" type="text/javascript"></script>';
-				'<script src="/static/javascripts/ravlogdates.js" type="text/javascript"></script>';
-				'<link href="/static/stylesheets/nicetitles.css" media="screen" rel="stylesheet" type="text/css" />';
-				'<link href="/static/stylesheets/default.css" media="screen" rel="stylesheet" type="text/css" />';
+				'
+<script src="/static/javascripts/application.js" type="text/javascript"></script>';
+				'
+<script src="/static/javascripts/nicetitles.js" type="text/javascript"></script>';
+				'
+<script src="/static/javascripts/niftycube.js" type="text/javascript"></script>';
+				'
+<script src="/static/javascripts/ravlogdates.js" type="text/javascript"></script>';
+				'
+<link href="/static/stylesheets/nicetitles.css" media="screen" rel="stylesheet" type="text/css" />';
+				'
+<link href="/static/stylesheets/default.css" media="screen" rel="stylesheet" type="text/css" />';
 			END;
 			
 			MACRO stylesheet_link_tag ( stylesheet )
@@ -53,11 +59,10 @@
 			
 			MACRO sh_js_include
 			BLOCK;
-			  '<script class="javascript" src="/static/shscripts/shCore.js"></script>';
-        '<script class="javascript" src="/static/shscripts/shBrushPerl.js"></script>';
-        '<script class="javascript">';
-        'dp.SyntaxHighlighter.HighlightAll("code");';
-        '</script>';
+			  '
+<script class="javascript" src="/static/shscripts/shCore.js"></script>';
+        '
+<script class="javascript" src="/static/shscripts/shBrushPerl.js"></script>';
          '<script type="text/javascript">';
          'SyntaxHighlighter.config.clipboardSwf = "/static/shscripts/clipboard.swf";';
          'SyntaxHighlighter.all();';
@@ -66,8 +71,10 @@
 			
 			MACRO dp_css_include_tag
 			BLOCK;
-			'<link type="text/css" rel="stylesheet" href="/static/shstyles/shCore.css"></link>';
-			'<link type="text/css" rel="stylesheet" href="/static/shstyles/shThemeDefault.css"></link>';
+			'
+<link type="text/css" rel="stylesheet" href="/static/shstyles/shCore.css"></link>';
+			'
+<link type="text/css" rel="stylesheet" href="/static/shstyles/shThemeDefault.css"></link>';
 			END;
 			
 			MACRO image_tag ( image )

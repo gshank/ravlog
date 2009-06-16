@@ -20,7 +20,7 @@ sub list : Chained('base') PathPart('list') Args(0)
 sub create : Chained('base') PathPart('create') Args(0)
 {
    my ( $self, $c ) = @_;
-   my $article = $c->model('DB::Article')->new_result({});
+   my $article = $c->model('DB::Article')->new_result({ user_id => $c->user->user_id });
    $self->article($article);
    return $self->form($c);
 }

@@ -23,7 +23,10 @@ use Catalyst (
 );
 
 
-__PACKAGE__->config( static => {dirs => ['static'] } );
+__PACKAGE__->config( static => {
+     dirs    => [ 'static', qr/^(stylesheets|javascripts)/,],
+     logging => 1 } 
+);
 
 __PACKAGE__->config( 'View::JSON' => { json_driver => 'JSON::Syck' } );
 
@@ -77,10 +80,11 @@ __PACKAGE__->setup;
 sub render_ravlog_date {
     my $self = shift;
     my $date = shift;
-    
-    return "<span class=\"ravlog_date\" title=\""
-      . $self->datetime_to_ravlog_time($date)
-      . "\"></span>";
+    my $dt = $self->datetime_to_ravlog_time($date);
+    my $output = "<span class=\"ravlog_date\" title=\""
+      . $dt
+      . "\">$dt</span>";
+    return $output;
 }
 
 sub set_ravlog_params {

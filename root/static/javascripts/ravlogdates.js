@@ -1,7 +1,7 @@
 function show_dates_as_local_time() {
   var spans = document.getElementsByTagName('span');
   for (var i=0; i<spans.length; i++) {
-    if (spans[i].className.match(/nifty_date/i)) {
+    if (spans[i].className.match(/ravlog_date/i)) {
       spans[i].innerHTML = get_local_time_for_date(spans[i].title);
     }
   }
