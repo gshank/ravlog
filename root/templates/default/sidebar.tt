@@ -20,8 +20,8 @@
 	[% PROCESS 'shared/archives_list.tt' %]
 	<h3>Links</h3>
 	[% PROCESS 'shared/links_list.tt' %]
-	<h3>Syndicate</h3>
-	[% PROCESS 'shared/syndicate_list.tt' %]
+	<h3>Feeds</h3>
+	[% PROCESS 'shared/feed_list.tt' %]
 	<h3>Meta</h3>
 	[% PROCESS 'shared/login_list.tt' %]
 	</div>

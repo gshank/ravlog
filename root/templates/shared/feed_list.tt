@@ -1,4 +1,4 @@
-<h2>Syndicate</h2>
+<h2>Feeds</h2>
 <ul>
 <li><a href="[% c.base_uri %]/feed/articles"><img src="/static/images/rss.png" alt="RSS" /> Articles</a></li>
 <li><a href="[% c.base_uri %]/feed/comments"><img src="/static/images/rss.png" alt="RSS" /> Comments</a></li>

@@ -4,6 +4,6 @@
 	[% PROCESS 'shared/tags_list.tt' %]
 	[% PROCESS 'shared/archives_list.tt' %]
 	[% PROCESS 'shared/links_list.tt' %]
-	[% PROCESS 'shared/syndicate_list.tt' %]
+	[% PROCESS 'shared/feed_list.tt' %]
 	[% PROCESS 'shared/login_list.tt' %]
 </div>
