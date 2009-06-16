@@ -24,8 +24,8 @@ use Catalyst (
 
 
 __PACKAGE__->config( static => {
-     dirs    => [ 'static', qr/^(stylesheets|javascripts)/,],
-     logging => 1 } 
+     dirs    => [ 'static', qr/^(stylesheets|javascripts|css|js)/,],
+   }
 );
 
 __PACKAGE__->config( 'View::JSON' => { json_driver => 'JSON::Syck' } );

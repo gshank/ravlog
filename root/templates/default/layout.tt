@@ -10,6 +10,7 @@
 	<meta name="MSSmartTagsPreventParsing" content="true" />
 			
 	<link rel="alternate" type="application/rss+xml" title="[% c.config.name %]" href="/feed/articles" />
+   <script type="text/javascript" src="/static/js/jquery.js"></script>
 
 	[% ravlog_define_headers %]
 

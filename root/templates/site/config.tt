@@ -24,7 +24,7 @@
 			BLOCK;
 			  dp_css_include_tag;
 				'
-<script src="/static/javascripts/application.js" type="text/javascript"></script>';
+<script src="/static/js/app.js" type="text/javascript"></script>';
 				'
 <script src="/static/javascripts/nicetitles.js" type="text/javascript"></script>';
 				'
