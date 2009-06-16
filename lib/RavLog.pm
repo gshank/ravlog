@@ -4,7 +4,9 @@ use strict;
 use warnings;
 use DateTime;
 use Text::Highlight;
+use Config::Any::Perl;
 
+our $VERSION = '0.01';
 
 use Catalyst ( 
    '-Debug',
@@ -20,7 +22,6 @@ use Catalyst (
    'Authentication', 
 );
 
-our $VERSION = '0.01';
 
 __PACKAGE__->config( static => {dirs => ['static'] } );
 
@@ -180,3 +181,25 @@ sub push_into_ravlog_params {
 }
 
 1;
+
+=head1 NAME
+
+RavLog - Blog application using Catalyst
+
+=head1 SYNOPSIS
+
+Install. Execute with 'script/ravlog_server.pl'.
+
+=head1 AUTHOR
+
+Gerda Shank
+
+Partly based on previous efforts by Victor Igumnov and Jonathan Rockway.
+
+=head1 LICENSE
+
+This library is free software, you can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+=cut
+

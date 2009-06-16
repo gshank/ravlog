@@ -1,3 +1,9 @@
+This is a Catalyst blog application that uses HTML::FormHandler. 
+It is not completely functional yet.
+
+It borrows from Typeface by Victor Idumnov and from Angerwhale by
+Jonathan Rockway.
+
 Installation:
   see INSTALL
 

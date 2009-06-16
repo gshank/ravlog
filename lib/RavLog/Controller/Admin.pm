@@ -2,7 +2,7 @@ package RavLog::Controller::Admin;
 
 use strict;
 use warnings;
-use base 'Catalyst::Controller::FormBuilder';
+use base 'Catalyst::Controller';
 
 sub base : Chained('/') PathPart('admin') CaptureArgs(0) 
 { 

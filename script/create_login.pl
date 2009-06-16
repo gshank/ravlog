@@ -3,9 +3,9 @@
 use lib './lib';
 use RavLog::Schema::DB;
 use Data::Dumper;
-use Config::Any::YAML;
+use Config::Any::Perl;
 
-my $cfg = Config::Any::YAML->load('ravlog.yml');
+my $cfg = Config::Any::Perl->load('local_ravlog.pl');
 
 my $db = RavLog::Schema::DB->connect($cfg->{'Model::DB'}->{connect_info}->[0]);
 
