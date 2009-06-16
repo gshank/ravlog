@@ -11,7 +11,7 @@
 <th>Edit</th>
 <th>Delete</th>
 
-[% WHILE (page = pages.next) %]
+[% FOREACH page IN pages %]
 
 <tr>
 <td id="name" class="">[% page.name %]</td>

@@ -3,7 +3,7 @@ package RavLog::Form::Comment;
 use HTML::FormHandler::Moose;
 
 extends 'HTML::FormHandler::Model::DBIC';
-with 'RavLog::Form::Render';
+with 'HTML::FormHandler::Render::Simple';
 with 'HTML::FormHandler::Role::Captcha';
 
 has_field 'name' => (

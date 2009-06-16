@@ -3,7 +3,7 @@ package RavLog::Form::Article;
 use HTML::FormHandler::Moose;
 
 extends 'HTML::FormHandler::Model::DBIC';
-with 'RavLog::Form::Render';
+with 'HTML::FormHandler::Render::Simple';
 
 has_field 'subject' => (
       label    => 'Subject',

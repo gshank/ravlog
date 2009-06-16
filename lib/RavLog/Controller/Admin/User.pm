@@ -20,7 +20,8 @@ sub create : Chained('base') PathPart('create') Args(0)
 {
    my ( $self, $c ) = @_;
    $c->stash( user => $c->model('DB::User')->new_result({}) );
-   return $self->form($c);
+   return unless $self->form($c);
+   $c->res->redirect( $c->uri_for_action('/admin/user/list') );
 }
 
 sub item : Chained('base') PathPart('') CaptureArgs(1)
@@ -41,18 +42,16 @@ sub view : Chained('item') PathPart('') Args(0)
 sub edit :  Chained('item') PathPart('edit') Args(0)
 {
    my ( $self, $c ) = @_;
-   return $self->form($c);
+   return unless $self->form($c);
+   $c->res->redirect( $c->uri_for_action('/admin/user/list') );
 }
 
 sub form
 {
    my ( $self, $c ) = @_;
    my $form = RavLog::Form::User->new( $c->stash->{user} );
-   $c->stash( template => 'admin/user/edit.tt', form => $form,
-      action => $c->uri_for( $self->action, $c->req->captures) );
-   return unless $form->process( params => $c->req->params );
-   
-   $c->res->redirect( $c->uri_for( $self->action_for('view'), $c->req->captures) );
+   $c->stash( template => 'admin/user/edit.tt', form => $form );
+   return $form->process( params => $c->req->params );
 }
 
 sub delete : Chained('item') PathPart('delete') Args(0)

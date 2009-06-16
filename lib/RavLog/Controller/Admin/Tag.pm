@@ -17,7 +17,7 @@ sub list : Chained('base') PathPart('list') Args(0)
 {
    my ( $self, $c ) = @_;
 
-   my $tags = $c->model('DB::Tag');
+   my $tags = [$c->model('DB::Tag')->all];
    $c->stash( tags => $tags );
 }
 
@@ -26,7 +26,7 @@ sub create : Chained('base') PathPart('create') Args(0)
    my ( $self, $c ) = @_;
    my $tag = $c->model('DB::Tag')->new_result({});
    $self->tag($tag);
-   return unless $c->form($c);
+   return unless $self->form($c);
    $c->res->redirect( $c->uri_for_action('/admin/tag/list') );
 }
 
@@ -40,7 +40,7 @@ sub item : Chained('base') PathPart('') CaptureArgs(1)
 sub edit : Chained('item') PathPart('edit') Args(0)
 {
    my ( $self, $c ) = @_;
-   return unless $c->form($c);
+   return unless $self->form($c);
    $c->res->redirect( $c->uri_for_action('/admin/tag/list') );
 }
 
@@ -53,6 +53,13 @@ sub form
       template => 'admin/tag/edit.tt',
    );
    return $form->process( $c->req->params );
+}
+
+sub delete : Chained('item') PathPart('delete') Args(0)
+{
+   my ( $self, $c ) = @_;
+   $self->tag->delete;
+   $c->res->redirect( $c->uri_for_action('/admin/tag/list') );
 }
 
 1;

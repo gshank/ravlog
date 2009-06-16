@@ -12,7 +12,7 @@
 <th>Delete</th>
 
 
-[% WHILE (tag = tags.next) %]
+[% FOREACH tag IN tags %]
 
 <tr>
 <td id="name" class="">[% tag.name %]</td>

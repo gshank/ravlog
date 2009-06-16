@@ -4,7 +4,7 @@ use HTML::FormHandler::Moose;
 use HTML::FormHandler::Types ('Email');
 
 extends 'HTML::FormHandler::Model::DBIC';
-with 'RavLog::Form::Render';
+with 'HTML::FormHandler::Render::Simple';
 
 
 has_field 'username' => (
@@ -14,14 +14,12 @@ has_field 'username' => (
 );
 
 has_field 'password' => (
-   required => 1,
    type     => 'Password',
    label    => 'Password',
    size     => 25,
 );
 
 has_field 'website' => (
-   required => 1,
    label    => 'Website',
    size     => 25,
 );

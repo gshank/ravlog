@@ -17,7 +17,7 @@ sub list : Chained('base') PathPart('list') Args(0)
 {
    my ( $self, $c ) = @_;
 
-   my $pages = $c->model('DB::Page');
+   my $pages = [$c->model('DB::Page')->all];
    $c->stash( pages => $pages );
 }
 
