@@ -5,17 +5,20 @@
 	<div class="post-info">
 		<h2 class="post-title">
 			<a title="[% c.uri_for(url) %]" href="[% url %]">[% article.subject %]</a>
-		</h2> <br/>
+		</h2>
+		<a href="[% c.base_uri %]/feed/comments/[% c.ravlog_txt_to_url(article.subject) %]"><img src="/static/images/rss.png" alt="RSS" /></a> &nbsp;
+      <br/>
 		<span>Posted by [% article.user.username %]&nbsp;&nbsp;&nbsp;</span>
       <p class="post-date"> 
          [% c.render_ravlog_date(article.created_at) %]
       </p><br/>
+      [% IF article.tags %]
 		<span>Tags:</span>
 		[% FOREACH tag = article.tags %] 
 			<a href="/tag/[% c.ravlog_txt_to_url(tag.name) %]">[% tag.name %]</a>
 		[% END %]
 		<br/>
-		<a href="[% c.base_uri %]/feed/comments/[% c.ravlog_txt_to_url(article.subject) %]"><img src="/static/images/rss.png" alt="RSS" /> [% article.subject %]'s RSS feed</a> &nbsp;
+      [% END %]
 		
 		[% IF article.comments_rs.count > 0 %]
 		<a href="[% url %]">[[% article.comments_rs.count %]] comments</a>

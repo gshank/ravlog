@@ -20,7 +20,7 @@ sub list : Chained('base') PathPart('list') Args(0)
 sub create : Chained('base') PathPart('create') Args(0)
 {
    my ( $self, $c ) = @_;
-   my $article = $c->model('DB::Article')->new_result({ user_id => $c->user->user_id });
+   my $article = $c->model('DB::Article')->new_result({ });
    $self->article($article);
    return $self->form($c);
 }
@@ -53,7 +53,8 @@ sub form
    $c->stash( template => 'admin/article/edit.tt', form => $form,
       action => $c->uri_for_action( $c->action, $c->req->captures) );
    return unless $form->process( params => $c->req->params );
-   
+   $form->item->update({user_id => $c->user->user_id }) 
+         unless( $form->item->user_id );
    $c->res->redirect( $c->uri_for_action( '/admin/article/view', [$form->item->id]) );
 }
 
