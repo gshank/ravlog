@@ -30,9 +30,6 @@ has_field 'comment' => (
       rows     => 10
 );
 
-has_field article_id => ( widget => 'no_render' );
-has_field remote_ip  => ( widget => 'no_render' );
-
 has_field 'submit' => ( 
       type => 'Submit',
       value => 'Save' 

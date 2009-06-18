@@ -9,10 +9,10 @@ sub stash_comment_form {
     );
     if( $c->req->method eq 'POST' ){
         my $params = $c->req->params;
-        $params->{article_id} = $article_id;
-        $params->{remote_ip} = $c->req->address;
         $form->params( $params );
         if( $form->process ){
+            my $comment = $form->item;
+            $comment->update( { article_id => $article_id, remote_ip => $c->req->address } );
             $c->res->redirect( $c->uri_for($c->action, $c->req->captures) );
         }
     }
