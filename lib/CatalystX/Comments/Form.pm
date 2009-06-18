@@ -31,6 +31,7 @@ has_field 'comment' => (
 );
 
 has_field article_id => ( widget => 'no_render' );
+has_field remote_ip  => ( widget => 'no_render' );
 
 has_field 'submit' => ( 
       type => 'Submit',

@@ -43,6 +43,13 @@ __PACKAGE__->add_columns(
       is_nullable   => 1,
       size          => undef,
    },
+   "remote_ip",
+   {
+      data_type     => "character varying",
+      default_value => undef,
+      is_nullable   => 1,
+      size          => 32,
+   },
    "created_at",
    {
       data_type     => "datetime",

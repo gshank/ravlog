@@ -33,6 +33,7 @@ CREATE TABLE `comments` (
   `url` character varying(255),
   `comment` text,
   `created_at` timestamp DEFAULT now(),
+  `remote_ip` character varying(32),
   `article_id` integer(4),
   INDEX comments_idx_article_id (`article_id`),
   PRIMARY KEY (`comment_id`),

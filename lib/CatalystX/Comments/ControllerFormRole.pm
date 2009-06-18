@@ -10,7 +10,7 @@ sub stash_comment_form {
     if( $c->req->method eq 'POST' ){
         my $params = $c->req->params;
         $params->{article_id} = $article_id;
-        $params->{ip} = $c->req->address;
+        $params->{remote_ip} = $c->req->address;
         $form->params( $params );
         if( $form->process ){
             $c->res->redirect( $c->uri_for($c->action, $c->req->captures) );
