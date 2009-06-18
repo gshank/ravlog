@@ -3,11 +3,12 @@ package RavLog::Controller::View;
 use Moose;
 BEGIN {
    extends 'Catalyst::Controller';
+   with 'CatalystX::Comments::ControllerFormRole';
 }
-use RavLog::Form::Comment;
 
 has 'comment' => ( is => 'rw' );
 has 'article' => ( is => 'rw' );
+has model_name => ( is => 'ro', isa => 'Str', default => 'DB' );
 
 sub base : Chained PathPart('') CaptureArgs(1)
 {
@@ -29,20 +30,9 @@ sub view : Chained('base') PathPart('view') Args(0)
    $c->stash->{comments} = [ $self->article->comments->all() ];
 
    $c->stash->{template} = 'index.tt';
-   return unless $self->comment_form($c); 
 
    $c->stash->{comments} = [ $self->article->comments->all ];
-   $c->stash->{form} = RavLog::Form::Comment->new(ctx => $c);
-}
-
-sub comment_form
-{
-   my ( $self, $c ) = @_;
-   
-   my $comment = $c->model('DB::Comment')->new_result({ article_id => $self->article->id});
-   my $form = RavLog::Form::Comment->new(ctx => $c);
-   $c->stash( form => $form );
-   return $form->process( item => $comment, params => $c->req->params );
+   $self->stash_comment_form( $c, $self->article->id );
 }
 
 

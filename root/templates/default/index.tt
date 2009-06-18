@@ -51,9 +51,9 @@
 [% END %]
 </ol>
 
-[% IF form %]
+[% IF comment_form %]
 <h3 id="respond">Comment</h3>
-[% form.render %]
+[% comment_form.render %]
 [% IF never %]
 <p>Type the following in the verification box</p>
 <img src="/submit/captcha" alt="" />
