@@ -3,7 +3,7 @@ package RavLog::Controller::View;
 use Moose;
 BEGIN {
    extends 'Catalyst::Controller';
-   with 'CatalystX::Comments::ControllerFormRole';
+   with 'CatalystX::Comments';
 }
 
 has 'comment' => ( is => 'rw' );

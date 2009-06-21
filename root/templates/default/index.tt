@@ -40,12 +40,17 @@
 	<li class="alt">
 	[% IF loop.index % 2 %]
    	<div class="comment">
-   [% ELSE %]
+    [% ELSE %]
 	<div class="comment_alt">
-      [% END %]
-	<h3><a title="[% comment.url %]" href="[% comment.url %]">[% comment.name %]</a></h3>
+    [% END %]
+    [% IF comment.user %] 
+    [% SET url = comment.user.website; SET name = comment.user.username; %]
+    [% ELSE %]
+    [% SET url = comment.url; SET name = comment.name; %]
+    [% END %]
+	<h3><a title="[% url %]" href="[% url %]">[% name %]</a></h3>
 	<small class="commentmetadata">Posted [% c.render_ravlog_date(comment.created_at) %]</small>
-	<p>[% comment.textilize('comment') %]</p>
+	<p>[% comment.textilize('body') %]</p>
 	</div>
 	</li>
 [% END %]

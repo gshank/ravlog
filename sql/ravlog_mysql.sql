@@ -31,10 +31,11 @@ CREATE TABLE `comments` (
   `name` character varying(255),
   `email` character varying(255),
   `url` character varying(255),
-  `comment` text,
+  `body` text,
   `created_at` timestamp DEFAULT now(),
   `remote_ip` character varying(32),
   `article_id` integer(4),
+  `user_id` integer(4),
   INDEX comments_idx_article_id (`article_id`),
   PRIMARY KEY (`comment_id`),
   CONSTRAINT `comments_fk_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`) ON DELETE CASCADE ON UPDATE CASCADE

@@ -36,7 +36,7 @@ __PACKAGE__->add_columns(
       is_nullable   => 1,
       size          => 255,
    },
-   "comment",
+   "body",
    {
       data_type     => "text",
       default_value => undef,
@@ -57,8 +57,8 @@ __PACKAGE__->add_columns(
       is_nullable   => 1,
       size          => undef,
    },
-   "article_id",
-   { data_type => "integer", default_value => undef, is_nullable => 1, size => 4 },
+   article_id => { data_type => "integer", default_value => undef, is_nullable => 1, size => 4 },
+   user_id => { data_type => "integer", default_value => undef, is_nullable => 1, size => 4 },
 );
 
 use Text::Textile qw(textile);
@@ -84,6 +84,7 @@ sub insert
 __PACKAGE__->set_primary_key("comment_id");
 
 __PACKAGE__->belongs_to( 'article', 'RavLog::Schema::DB::Article', 'article_id' );
+__PACKAGE__->belongs_to( 'user', 'RavLog::Schema::DB::User', 'user_id' );
 
 1;
 
