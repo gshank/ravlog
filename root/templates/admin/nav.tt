@@ -1,8 +1,10 @@
-<p>
-  [[<a href="[% c.uri_for_action('/admin/article/create') %]">Create</a>]]
-  [[<a href="[% c.uri_for_action('/admin/article/list') %]">Articles</a>]]
-  [[<a href="[% c.uri_for_action('/admin/user/list') %]">Users</a>]]
-  [[<a href="[% c.uri_for_action('/admin/tag/list') %]">Tags</a>]]
-  [[<a href="[% c.uri_for_action('/admin/page/list') %]">Pages</a>]]
-  [[<a href="[% c.uri_for_action('/admin/link/list') %]">Links</a>]]
-</p>
+<div id="tabnav">
+   <ul>
+      <li id="nav-create"><span class="content"><a href="[% c.uri_for_action('/admin/article/create') %]">Create</a></span></li>
+      <li id="nav-articles"><span class="content"><a href="[% c.uri_for_action('/admin/article/list') %]">Articles</a></span></li>
+      <li id="nav-users"><span class="content"><a href="[% c.uri_for_action('/admin/user/list') %]">Users</a></span></li>
+      <li id="nav-tags"><span class="content"><a href="[% c.uri_for_action('/admin/tag/list') %]">Tags</a></span></li>
+      <li id="nav-pages"><span class="content"><a href="[% c.uri_for_action('/admin/page/list') %]">Pages</a></span></li>
+      <li id="nav-links"><span class="content"><a href="[% c.uri_for_action('/admin/link/list') %]">Links</a></span></li>
+   </ul>
+</div>

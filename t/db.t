@@ -10,7 +10,12 @@ my $schema = RavLog::Schema::DB->connect('dbi:mysql:dbname=ravlog;user=ravlog_ad
 
 ok($schema, 'get db schema');
 
+
 my $user = $schema->resultset('User')->find(1);
+unless( $user )
+{
+   $user = $schema->resultset('User')->create({ username => 'test', password => 'testpw'} );
+}
 ok( $user,  'get user' );
 
 my @articles = $schema->resultset('Article')->get_latest_articles;

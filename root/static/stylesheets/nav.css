@@ -1,0 +1,115 @@
+
+#posting #nav-posting, #settings #nav-settings, #template #nav-template, #viewblog #vav-viewblog {
+	list-style:disc;
+}
+
+#nav {
+	text-align:left;
+	background-color:transparent;
+	margin:0;
+}
+
+#tabnav {
+	float:left;
+	width:100%;
+	line-height:normal;
+	white-space:nowrap;
+	margin:0;
+	padding:0 0 10px;
+	background:transparent url(/img/bg-tabnav.png) repeat-x left bottom;
+}
+
+#tabnav ul {
+	margin:0;
+	padding:0 10px;
+	list-style:none !important;
+	background:transparent;
+}
+
+#tabnav #nav-viewblog, #tabnav #nav-viewblog span.content {
+	background:none;
+}
+
+#tabnav span.content a {
+	text-decoration:underline;
+	font-weight:normal;
+	font-size:118%;
+	color:#333;
+}
+
+#tabnav #nav-viewblog span.content a {
+	color:#9cf;
+}
+
+#tabnav #nav-viewblog span.content a:hover {
+	color:#fff;
+}
+
+#tabnav>ul span.content {
+	width:auto;
+}
+
+#tabnav span.content {
+	float:none;
+}
+
+/**/ #tabnav a:hover {
+	color:#f60;
+	text-decoration:underline;
+}
+
+#posting #nav-posting, #settings #nav-settings, #template #nav-template, #stats #nav-stats, #monetize #nav-monetize {
+	background-position:0 -75px;
+	border:0;
+	list-style:none !important;
+}
+
+#posting #nav-posting span.content, #settings #nav-settings span.content, #template #nav-template span.content, #stats #nav-stats span.content, #monetize #nav-monetize span.content {
+	background-position:100% -75px;
+	padding-bottom:5px;
+}
+
+#posting #nav-posting span.content a, #settings #nav-settings span.content a, #template #nav-template span.content a, #stats #nav-stats span.content a, #monetize #nav-monetize span.content a {
+	font-weight:bold;
+	text-decoration:none;
+}
+
+#posting #nav-posting span.content a:hover, #settings #nav-settings span.content a:hover, #template #nav-template span.content a:hover, #stats #nav-stats span.content a:hover, #monetize #nav-monetize span.content a:hover, #posting #tabnav #nav-posting:hover span.content a, #settings #tabnav #nav-settings:hover span.content a, #template #tabnav #nav-template:hover span.content a, #stats #tabnav #nav-stats:hover span.content a, #monetize #tabnav #nav-monetize:hover span.content a {
+	color:#000;
+}
+
+#tabnav span.content a {
+	color:#000;
+	text-decoration:underline;
+}
+
+#tabnav li:hover, #tabnav li:hover span.content {
+	background-position:0 -150px;
+}
+
+#tabnav li:hover a, #tabnav li:hover span.content a, #tabnav li a:hover {
+	text-decoration:underline;
+	color:#f60;
+}
+
+#tabnav li:hover span.content {
+	background-position:100% -150px;
+}
+
+#tabnav li {
+	float:left;
+	list-style:circle;
+	background:transparent url("/img/bg-tab-left.png") no-repeat 0 0;
+	margin:0;
+	padding:0 0 0 12px;
+	border-bottom:1px solid #826C55;
+	list-style:none !important;
+}
+
+#tabnav span.content {
+	display:block;
+	width:.1em;
+	background:transparent url("/img/bg-tab-right.png") no-repeat right top;
+	padding:10px 18px 4px 6px;
+}
+
