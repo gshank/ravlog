@@ -35,6 +35,8 @@
 <link href="/static/stylesheets/nicetitles.css" media="screen" rel="stylesheet" type="text/css" />';
 				'
 <link href="/static/stylesheets/default.css" media="screen" rel="stylesheet" type="text/css" />';
+				'
+<link href="/static/stylesheets/tabnav.css" media="screen" rel="stylesheet" type="text/css" />';
 			END;
 			
 			MACRO stylesheet_link_tag ( stylesheet )

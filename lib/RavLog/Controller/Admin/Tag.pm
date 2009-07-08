@@ -18,7 +18,7 @@ sub list : Chained('base') PathPart('list') Args(0)
    my ( $self, $c ) = @_;
 
    my $tags = [$c->model('DB::Tag')->all];
-   $c->stash( tags => $tags );
+   $c->stash( tags => $tags, tabnavid => 'tabnav4' );
 }
 
 sub create : Chained('base') PathPart('create') Args(0)

@@ -13,7 +13,7 @@ sub list : Chained('base') PathPart('list') Args(0)
 {
    my ( $self, $c ) = @_;
    my $users = $c->model('DB::User');
-   $c->stash( users => $users, template => 'admin/user/list.tt' );
+   $c->stash( users => $users, template => 'admin/user/list.tt', tabnavid => 'tabnav3' );
 }
 
 sub create : Chained('base') PathPart('create') Args(0)

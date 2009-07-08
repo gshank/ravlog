@@ -1,7 +1,3 @@
-<div id="recent_blog" label="Recent Entries">
-<div class="padding">
-<p>
-
 [% PROCESS admin/nav.tt %]
 
 <h3>Recent Articles</h3><br/><br/>
@@ -29,8 +25,4 @@
 [% END %]
 
 </table>
-
-</p>
-</div>
-</div>
 

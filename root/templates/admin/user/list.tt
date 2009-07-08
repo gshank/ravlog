@@ -1,7 +1,5 @@
-<h1>User list</h1>
-
 [% PROCESS admin/nav.tt %]
-
+<p><b>Users</b></p>
 <p>
   <a href="[% c.uri_for_action('/admin/user/create') %]">Create User</a>
 </p>

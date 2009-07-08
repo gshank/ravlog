@@ -14,7 +14,8 @@ sub list : Chained('base') PathPart('list') Args(0)
 {
    my ( $self, $c ) = @_;
    my $articles = $c->model('DB::Article');
-   $c->stash( articles => $articles, template => 'admin/article/list.tt' );
+   $c->stash( articles => $articles, template => 'admin/article/list.tt',
+              tabnavid => 'tabnav2' );
 }
 
 sub create : Chained('base') PathPart('create') Args(0)
@@ -50,7 +51,8 @@ sub form
 {
    my ( $self, $c ) = @_;
    my $form = RavLog::Form::Article->new( $self->article );
-   $c->stash( template => 'admin/article/edit.tt', form => $form,
+   $c->stash( template => 'admin/article/edit.tt', 
+      tabnavid => 'tabnav1', form => $form,
       action => $c->uri_for_action( $c->action, $c->req->captures) );
    return unless $form->process( params => $c->req->params );
    $form->item->update({user_id => $c->user->user_id }) 
