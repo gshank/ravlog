@@ -1,3 +1,2 @@
-<h1>Edit comment</h1>
-
 [% PROCESS admin/nav.tt %]
+<h1>Edit comment</h1>

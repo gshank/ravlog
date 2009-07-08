@@ -4,7 +4,7 @@
   <a href="[% c.uri_for_action('/admin/user/create') %]">Create User</a>
 </p>
 
-<table cellpadding="2" cellspacing="1"> 
+<table border="1" cellpadding="3" cellspacing="0"> 
 <th>User Name</th>
 <th>Email</th>
 <th>Edit</th>

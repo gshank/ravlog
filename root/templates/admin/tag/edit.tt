@@ -1,5 +1,4 @@
-<h1>Create or Edit a Tag</h1>
-
 [% PROCESS admin/nav.tt %]
+<h1>Create or Edit a Tag</h1>
 
 [% form.render %]

@@ -1,5 +1,5 @@
-<h1>View Article</h1>
 [% PROCESS admin/nav.tt %]
+<h1>View Article</h1>
 
 <h2>[% article.subject %]</h2>
 

@@ -1,3 +1,2 @@
-<h1>Comment list</h1>
-
 [% PROCESS admin/nav.tt %]
+<h1>Comment list</h1>

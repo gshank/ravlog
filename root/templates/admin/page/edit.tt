@@ -1,5 +1,4 @@
-<h1>Edit page</h1>
-
 [% PROCESS admin/nav.tt %]
+<h1>Edit page</h1>
 
 [% form.render %]
