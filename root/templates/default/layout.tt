@@ -18,7 +18,7 @@
 	
 	[% stylesheet_link_tag('master.css') %]
    [% sh_js_include %]
-#   [% sh_css_include %]
+   [% sh_css_include %]
 	
  </head>
  <body>
