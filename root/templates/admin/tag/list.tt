@@ -1,6 +1,6 @@
 [% PROCESS admin/nav.tt %]
 
-<p><b>Tag list</b></p>
+<h3>Tags</h3>
 <p>
   <a href="[% c.uri_for_action('/admin/tag/create') %]">Create Tag</a>
 </p>

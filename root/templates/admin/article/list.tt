@@ -1,6 +1,6 @@
 [% PROCESS admin/nav.tt %]
 
-<h3>Recent Articles</h3><br/><br/>
+<h3>Recent Articles</h3>
 <table border="1" cellpadding="3" cellspacing="0"> 
 <th>Id</th>
 <th>Subject</th>

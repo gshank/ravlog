@@ -1,5 +1,5 @@
 [% PROCESS admin/nav.tt %]
-<p><b>Links</b></p>
+<h3>Links</h3>
 
 <p>
   <a href="[% c.uri_for_action('/admin/link/create') %]">Create Link</a>

@@ -1,7 +1,7 @@
 <br />
 [% FOREACH article = articles %]
 	<div class="post">
-	[% url = c.ravlog_txt_to_url(article.subject, article.id) _ '/view' %]
+	[% url = '/' _ c.ravlog_txt_to_url(article.subject, article.id) _ '/view' %]
 	<div class="post-info">
 		<h2 class="post-title">
 			<a title="[% c.uri_for(url) %]" href="[% url %]">[% article.subject %]</a>
@@ -11,27 +11,24 @@
 		<span>Posted by [% article.user.username %]&nbsp;&nbsp;&nbsp;</span>
       <p class="post-date"> 
          [% c.render_ravlog_date(article.created_at) %]
-      </p><br/>
-      [% IF article.tags %]
-		<span>Tags:</span>
-		[% FOREACH tag = article.tags %] 
-			<a href="/tag/[% c.ravlog_txt_to_url(tag.name) %]">[% tag.name %]</a>
-		[% END %]
-		<br/>
-      [% END %]
-		
-		[% IF article.comments_rs.count > 0 %]
-		<a href="[% url %]">[[% article.comments_rs.count %]] comments</a>
-		[% END %]
-		
+      </p>
 	</div>
 	
 	<div class="post-content">
 		[% article.textilize('body') %]
 	</div>
-	<div class="post-footer">&nbsp;</div>
+	<div class="post-footer">&nbsp;
+      [% IF article.tags %]
+		<span>Tags:</span>
+		[% FOREACH tag = article.tags %] 
+			<a href="/tag/[% c.ravlog_txt_to_url(tag.name) %]">[% tag.name %]</a>
+		[% END %]
+      [% END %]
+		&nbsp;&nbsp;<a href="[% url %]">[[% article.comments_rs.count %]] comments</a>
+   </div>
 	</div>
 	<br />
+   <br />
 [% END %]
 <div id="comments"></div>
 

@@ -1,5 +1,5 @@
 [% PROCESS admin/nav.tt %]
-<p><b>Page list</b></p>
+<h3>Page list</h3>
 
 <p>
   <a href="[% c.uri_for_action('/admin/page/create') %]">Create Page</a>
