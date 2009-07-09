@@ -1,4 +1,3 @@
-on front page: fix username and date of article
-Switch everything to chained
+Make jQuery javascript to replace the dojo in application.js
 See if we can dump the customized CalendarMonthSimple
 See if we can dump old version of Calendar::Simple (0.04!!)
