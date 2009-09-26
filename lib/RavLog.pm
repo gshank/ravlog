@@ -17,8 +17,6 @@ use Catalyst (
    'Session', 
    'Session::Store::FastMmap', 
    'Session::State::Cookie', 
-   'Server',
-   'Server::XMLRPC',
    'Authentication', 
 );
 
@@ -28,7 +26,7 @@ __PACKAGE__->config( static => {
    }
 );
 
-__PACKAGE__->config( 'View::JSON' => { json_driver => 'JSON::Syck' } );
+__PACKAGE__->config( 'View::JSON' => { json_driver => 'JSON::XS' } );
 
 __PACKAGE__->config( 'Plugin::Cache' => 
   { backend => { store => 'FastMmap' } } );
