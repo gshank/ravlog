@@ -18,12 +18,19 @@ use Catalyst (
    'Session::Store::FastMmap', 
    'Session::State::Cookie', 
    'Authentication', 
+   '+CatalystX::SimpleLogin',
 );
 
 
 __PACKAGE__->config( static => {
      dirs    => [ 'static', qr/^(stylesheets|javascripts|css|js)/,],
    }
+);
+
+__PACKAGE__->config(
+    'Controller::Login' => {
+        login => 'WithRedirect',
+     }
 );
 
 __PACKAGE__->config( 'View::JSON' => { json_driver => 'JSON::XS' } );
@@ -61,10 +68,10 @@ __PACKAGE__->config( 'Plugin::PageCache'  => {
     debug => 0,
 });
 
-# session not yet using Plugin::Session config
 __PACKAGE__->config( session => {
     expires => 3600,
     storage => '/tmp/sessions',
+    flash_to_stash => 1,
 });
 
 

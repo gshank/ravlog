@@ -2,7 +2,7 @@
 [% IF c.user %]
 	<p style="display: inline; font-size: 12px;">
 		<span class="special_text">Logged in as:</span> [% c.user.username %]<br />
-		<a href="/login/logout">Logout</a>
+		<a href="/logout">Logout</a>
 	</p>
 [% END %]
 </div>

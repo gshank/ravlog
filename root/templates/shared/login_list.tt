@@ -3,7 +3,7 @@
 [% IF c.user %]
 <li><span>Logged in as: [% c.user.username %]</span></li>
 <li><a href="/admin">Site-Admin</a></li>
-<li><a href="/login/logout">Logout</a></li>
+<li><a href="/logout">Logout</a></li>
 [% ELSE %]
 <li><a href="/login">Login</a></li>
 [% END %]
