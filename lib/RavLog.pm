@@ -27,9 +27,11 @@ __PACKAGE__->config( static => {
    }
 );
 
+# warning: SimpleLogin not yet stable. may change.
 __PACKAGE__->config(
     'Controller::Login' => {
         login => 'WithRedirect',
+        render_to_stash_template => 1,
      }
 );
 
