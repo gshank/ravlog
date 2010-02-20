@@ -1,14 +1,12 @@
 package RavLog::Controller::Admin;
+use Moose;
+use namespace::autoclean;
 
-use strict;
-use warnings;
-use base 'Catalyst::Controller';
+BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
-sub base : Chained('/') PathPart('admin') CaptureArgs(0) 
+sub base : Chained('/') PathPart('admin') CaptureArgs(0) Does('NeedsLogin') 
 { 
    my ( $self, $c ) = @_;
-
-   $c->res->redirect( $c->uri_for('/login') ) unless $c->user;
 
 }
 

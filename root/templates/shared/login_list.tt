@@ -5,6 +5,6 @@
 <li><a href="/admin">Site-Admin</a></li>
 <li><a href="/logout">Logout</a></li>
 [% ELSE %]
-<li><a href="/login">Login</a></li>
+<li><a href="/admin">Login</a></li>
 [% END %]
 </ul>
