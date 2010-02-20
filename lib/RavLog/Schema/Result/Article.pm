@@ -30,6 +30,12 @@ __PACKAGE__->add_columns(
       is_nullable   => 1,
       size          => undef,
    },
+   "format",
+   {
+      data_type     => 'varchar',
+      is_nullable   => 1,
+      size          => 12,
+   },
    "created_at",
    {
       data_type     => "datetime",
@@ -78,6 +84,9 @@ sub textilize
    my $what = shift;
 
    my $temp = $self->$what;
+
+   return $temp if ( $self->format && $self->format eq 'html' );
+   # TODO: support different formats!!!
    $temp =~ s/<textarea/==<textarea/g;
    $temp =~ s/<\/textarea>/<\/textarea>==/g;
    # $temp =~ s/\[code (.*?)\]/==\[code $1\]/g;
