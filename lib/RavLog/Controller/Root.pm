@@ -61,10 +61,29 @@ sub archived : Local
 sub default : Local
 {
    my ( $self, $c ) = @_;
+   $self->blog_index($c);
+}
 
+sub front_page : Path Args(0) {
+    my ( $self, $c ) = @_;
+    my $front_page = $c->model('DB::Config')->find('front page');
+    if( $front_page->value eq 'blog' ) {
+        $self->blog_index($c);
+    }
+    else {
+        $c->forward( $front_page->value );
+    }
+}
+
+sub blog_index {
    my @articles = $c->model('DB::Article')->get_latest_articles();
    $c->stash->{articles} = [@articles];
-   $c->stash->{template} = 'index.tt';
+   $c->stash->{template} = 'blog_index.tt';
+}
+
+sub blog : Path('/blog') Args(0) {
+    my ( $self, $c ) = @_
+    $self->blog_index($c);
 }
 
 sub tags 
