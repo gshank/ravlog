@@ -1,5 +1,8 @@
 <br />
-[% FOREACH article = articles %]
+[% IF articles.count == 0 %]
+<p>No matching articles found</p>
+[% END %]
+[% WHILE ( article = articles.next ) %]
 	<div class="post">
 	[% url = '/' _ c.ravlog_txt_to_url(article.subject, article.id) _ '/view' %]
 	<div class="post-info">

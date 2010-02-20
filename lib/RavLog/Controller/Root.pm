@@ -31,7 +31,7 @@ sub tag : Local
    my $db_tag =
       $c->model('DB::Tag')
       ->search( { name => { like => $c->ravlog_url_to_query($tag) } } )->first();
-   $c->stash->{articles} = [ $db_tag->articles ];
+   $c->stash->{articles} = $db_tag->articles;
    $c->stash->{template} = 'blog_index.tt';
    $c->stash->{rss}      = $db_tag->name;
 }
@@ -55,15 +55,16 @@ sub page : Local
 sub archived : Local
 {
    my ( $self, $c, $year, $month, $day ) = @_;
-   my @articles = $c->model('DB::Article')->archived( $year, $month, $day );
 
-   $c->stash->{articles} = [@articles];
+   my $articles = $c->model('DB::Article')->archived( $year, $month, $day );
+   $c->stash->{articles} = $articles; 
    $c->stash->{template} = 'blog_index.tt';
 }
 
 sub default : Local
 {
    my ( $self, $c ) = @_;
+
    $self->blog_index($c);
 }
 
@@ -85,8 +86,9 @@ sub front_page : Path Args(0) {
 
 sub blog_index {
    my ( $self, $c ) = @_;
-   my @articles = $c->model('DB::Article')->get_latest_articles();
-   $c->stash->{articles} = [@articles];
+
+   my $articles = $c->model('DB::Article')->get_latest_articles();
+   $c->stash->{articles} = $articles; 
    $c->stash->{template} = 'blog_index.tt';
 }
 
