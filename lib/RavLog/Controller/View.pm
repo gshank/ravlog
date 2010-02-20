@@ -29,7 +29,7 @@ sub view : Chained('base') PathPart('view') Args(0)
    $c->stash->{title}    = $self->article->subject();
    $c->stash->{comments} = [ $self->article->comments->all() ];
 
-   $c->stash->{template} = 'index.tt';
+   $c->stash->{template} = 'blog_index.tt';
 
    $c->stash->{comments} = [ $self->article->comments->all ];
    $self->stash_comment_form( $c, $self->article->id );

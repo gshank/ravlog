@@ -32,7 +32,7 @@ sub tag : Local
       $c->model('DB::Tag')
       ->search( { name => { like => $c->ravlog_url_to_query($tag) } } )->first();
    $c->stash->{articles} = [ $db_tag->articles ];
-   $c->stash->{template} = 'index.tt';
+   $c->stash->{template} = 'blog_index.tt';
    $c->stash->{rss}      = $db_tag->name;
 }
 
@@ -58,7 +58,7 @@ sub archived : Local
    my @articles = $c->model('DB::Article')->archived( $year, $month, $day );
 
    $c->stash->{articles} = [@articles];
-   $c->stash->{template} = 'index.tt';
+   $c->stash->{template} = 'blog_index.tt';
 }
 
 sub default : Local

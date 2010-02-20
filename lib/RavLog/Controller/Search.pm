@@ -21,7 +21,7 @@ sub search : Global
    )->all();
 
    $c->stash->{articles} = [@finds];
-   $c->stash->{template} = 'index.tt';
+   $c->stash->{template} = 'blog_index.tt';
 }
 
 1;
