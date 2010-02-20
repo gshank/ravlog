@@ -6,7 +6,7 @@ use Test::WWW::Mechanize::Catalyst;
 use String::Random qw(random_string random_regex);
 
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'RavLog');
-my $schema = RavLog::Schema::DB->connect('dbi:mysql:dbname=ravlog;user=ravlog_admin;password=rlpw');
+my $schema = RavLog::Schema->connect('dbi:mysql:dbname=ravlog;user=ravlog_admin;password=rlpw');
 
 $mech->get_ok( '/test_test/view', 'Request should succeed' );
 warn $mech->content;

@@ -1,9 +1,9 @@
 use lib './lib';
-use RavLog::Schema::DB;
+use RavLog::Schema;
 use Data::Dumper;
 use Config::Any::YAML;
 
-my $db = RavLog::Schema::DB->connect('dbi:SQLite:./mydb.db');
+my $db = RavLog::Schema->connect('dbi:SQLite:./mydb.db');
 
 if(!defined $db) {
 	print "Can't connect to database!\n";

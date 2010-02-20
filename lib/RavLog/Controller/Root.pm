@@ -12,6 +12,9 @@ sub begin : Private
 {
    my ( $self, $c ) = @_;
 
+   if( $c->model('DB::Config')->find('front page')->value ne 'blog' ) {
+        $c->stash('blog_page' => 1 );
+    }
    $c->stash->{pages} =
       [ $c->model('DB::Page')->search( display_in_drawer => 1 )->all() ];
    $c->stash->{activelink} = { home => 'activelink' };    # set it to home unless overridden.
@@ -66,23 +69,30 @@ sub default : Local
 
 sub front_page : Path Args(0) {
     my ( $self, $c ) = @_;
+
     my $front_page = $c->model('DB::Config')->find('front page');
+    $c->stash( activelink => { 'home' => 'activelink' } );
     if( $front_page->value eq 'blog' ) {
         $self->blog_index($c);
     }
     else {
-        $c->forward( $front_page->value );
+        my $page = $c->model('DB::Page')
+          ->search( { name => { like => $c->ravlog_url_to_query($front_page->value) } } )->first();
+        $c->stash->{page}    = $page;
+        $c->stash( template => 'page.tt' );
     }
 }
 
 sub blog_index {
+   my ( $self, $c ) = @_;
    my @articles = $c->model('DB::Article')->get_latest_articles();
    $c->stash->{articles} = [@articles];
    $c->stash->{template} = 'blog_index.tt';
 }
 
 sub blog : Path('/blog') Args(0) {
-    my ( $self, $c ) = @_
+    my ( $self, $c ) = @_;
+    $c->stash( activelink => { 'blog' => 'activelink' } );
     $self->blog_index($c);
 }
 

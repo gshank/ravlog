@@ -7,7 +7,7 @@
     description => 'a writers blog',
   },
   'Model::DB' => {
-    schema_class => 'RavLog::Schema::DB',
+    schema_class => 'RavLog::Schema',
     connect_info => [
         'dbi:mysql:dbname=ravlog;user=ravlog_admin;password=rlpw'
     ],

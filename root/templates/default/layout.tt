@@ -32,6 +32,9 @@
 				<br class="clear"/>
 				<ul id="tab_content">
 				<li id="home" class='[% activelink.home %]'><a href="/">Home</a></li>
+                [% IF blog_page %]
+                <li id="blog_page" class="blog [% activelink.blog %]"><a href="/blog">Blog</a></li>
+                [% END %]
 				[% FOREACH page = pages %]
 				<li id="[% page.name %]"class='[% activelink.${c.ravlog_txt_to_url(page.name)} %]' ><a href="[% c.base_uri %]/page/[% c.ravlog_txt_to_url(page.name) %]">[% page.name %]</a></li>
 				[% END %]

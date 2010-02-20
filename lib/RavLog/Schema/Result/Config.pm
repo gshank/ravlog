@@ -6,7 +6,7 @@ use warnings;
 use base 'DBIx::Class';
 
 __PACKAGE__->load_components( "Core" );
-__PACKAGE__->table("links");
+__PACKAGE__->table("config");
 __PACKAGE__->add_columns(
    "name",
    {

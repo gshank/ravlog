@@ -1,12 +1,13 @@
 use strict;
 use warnings;
-use Test::More tests => 4;
+use Test::More;
 use lib 't/lib';
 
 
-use_ok( 'RavLog::Schema::DB');
+use_ok( 'RavLog::Schema');
+use_ok( 'RavLog::Schema::Result::User');
 
-my $schema = RavLog::Schema::DB->connect('dbi:mysql:dbname=ravlog;user=ravlog_admin;password=rlpw');
+my $schema = RavLog::Schema->connect('dbi:mysql:dbname=ravlog;user=ravlog_admin;password=rlpw');
 
 ok($schema, 'get db schema');
 
@@ -28,3 +29,5 @@ foreach my $article (@articles)
 
 my $article = $schema->resultset('Article')->new_result({});
 ok( $article, 'new result for Article worked' );
+
+done_testing;

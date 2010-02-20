@@ -1,13 +1,13 @@
 #!/usr/bin/env perl
 
 use lib './lib';
-use RavLog::Schema::DB;
+use RavLog::Schema;
 use Data::Dumper;
 use Config::Any::Perl;
 
 my $cfg = Config::Any::Perl->load('ravlog_local.pl');
 
-my $db = RavLog::Schema::DB->connect($cfg->{'Model::DB'}->{connect_info}->[0]);
+my $db = RavLog::Schema->connect($cfg->{'Model::DB'}->{connect_info}->[0]);
 
 if(!defined $db) {
 	print "Can't connect to database!\n";
