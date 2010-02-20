@@ -21,8 +21,7 @@ requires 'Catalyst::Authentication::Store::DBIx::Class' => '0.1082';
 requires 'Catalyst::Authentication::Credential::Password';
 requires 'Catalyst::View::TT' => '0.29';
 requires 'Catalyst::View::JSON' => '0.26';
-# currently requires github/gshank/catalystx-simplelogin
-requires 'CatalystX::SimpleLogin' => '0.01';
+requires 'CatalystX::SimpleLogin' => '0.08';
 requires 'Text::Highlight';
 requires 'Text::Textile';
 requires 'JSON::XS';
