@@ -70,9 +70,9 @@ __PACKAGE__->config( 'Plugin::PageCache'  => {
     debug => 0,
 });
 
-__PACKAGE__->config( session => {
+__PACKAGE__->config( 'Plugin::Session' => {
     expires => 3600,
-    storage => '/tmp/sessions',
+    storage => '__HOME__/tmp/sessions',
     flash_to_stash => 1,
 });
 

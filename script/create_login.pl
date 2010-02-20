@@ -5,7 +5,7 @@ use RavLog::Schema::DB;
 use Data::Dumper;
 use Config::Any::Perl;
 
-my $cfg = Config::Any::Perl->load('local_ravlog.pl');
+my $cfg = Config::Any::Perl->load('ravlog_local.pl');
 
 my $db = RavLog::Schema::DB->connect($cfg->{'Model::DB'}->{connect_info}->[0]);
 
