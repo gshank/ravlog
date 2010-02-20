@@ -1,11 +1,11 @@
-package RavLog::Schema::DB::Comment;
+package RavLog::Schema::Result::Comment;
 
 use strict;
 use warnings;
 
 use base 'DBIx::Class';
 
-__PACKAGE__->load_components( "PK::Auto", "InflateColumn::DateTime", "Core" );
+__PACKAGE__->load_components( "InflateColumn::DateTime", "Core" );
 __PACKAGE__->table("comments");
 __PACKAGE__->add_columns(
    "comment_id",
@@ -83,8 +83,8 @@ sub insert
 
 __PACKAGE__->set_primary_key("comment_id");
 
-__PACKAGE__->belongs_to( 'article', 'RavLog::Schema::DB::Article', 'article_id' );
-__PACKAGE__->belongs_to( 'user', 'RavLog::Schema::DB::User', 'user_id' );
+__PACKAGE__->belongs_to( 'article', 'RavLog::Schema::Result::Article', 'article_id' );
+__PACKAGE__->belongs_to( 'user', 'RavLog::Schema::Result::User', 'user_id' );
 
 1;
 

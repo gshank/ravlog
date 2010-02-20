@@ -1,4 +1,4 @@
-package RavLog::Schema::DB::Page;
+package RavLog::Schema::Result::Page;
 
 use strict;
 use warnings;

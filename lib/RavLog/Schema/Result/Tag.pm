@@ -1,4 +1,4 @@
-package RavLog::Schema::DB::Tag;
+package RavLog::Schema::Result::Tag;
 
 use strict;
 use warnings;
@@ -26,7 +26,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("tag_id");
 
 __PACKAGE__->has_many(
-   'tags_articles' => 'RavLog::Schema::DB::TagArticle',
+   'tags_articles' => 'RavLog::Schema::Result::TagArticle',
    'tag_id'
 );
 __PACKAGE__->many_to_many( 'articles' => 'tags_articles', 'article' );

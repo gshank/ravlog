@@ -1,4 +1,4 @@
-package RavLog::Schema::DB::Article;
+package RavLog::Schema::Result::Article;
 
 use strict;
 use warnings;
@@ -57,17 +57,17 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("article_id");
 __PACKAGE__->has_many(
-   'comments' => 'RavLog::Schema::DB::Comment',
+   'comments' => 'RavLog::Schema::Result::Comment',
    'article_id'
 );
 
 __PACKAGE__->belongs_to(
-   'user' => 'RavLog::Schema::DB::User',
+   'user' => 'RavLog::Schema::Result::User',
    'user_id'
 );
 
 __PACKAGE__->has_many(
-   'tags_articles' => 'RavLog::Schema::DB::TagArticle',
+   'tags_articles' => 'RavLog::Schema::Result::TagArticle',
    'article_id'
 );
 __PACKAGE__->many_to_many( 'tags' => 'tags_articles', 'tag' );

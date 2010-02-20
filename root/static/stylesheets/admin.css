@@ -126,3 +126,8 @@ td {
 .darken {
 	background-color: #f1f1f1;
 }
+
+/* admin pages */
+span .error_message {
+   color: red;
+}

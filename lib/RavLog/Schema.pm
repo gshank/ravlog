@@ -1,4 +1,4 @@
-package RavLog::Schema::DB;
+package RavLog::Schema;
 
 use strict;
 use warnings;

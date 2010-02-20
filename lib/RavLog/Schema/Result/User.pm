@@ -1,6 +1,4 @@
-package RavLog::Schema::DB::User;
-
-# Created by DBIx::Class::Schema::Loader v0.03007 @ 2006-10-18 15:02:47
+package RavLog::Schema::Result::User;
 
 use strict;
 use warnings;
@@ -57,7 +55,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("user_id");
 
 __PACKAGE__->has_many(
-   'articles' => 'RavLog::Schema::DB::Article',
+   'articles' => 'RavLog::Schema::Result::Article',
    'user_id'
 );
 

@@ -1,4 +1,4 @@
 [% PROCESS admin/nav.tt %]
 <h1>Edit page</h1>
-
+[% PROCESS admin/form_err.tt %]
 [% form.render %]

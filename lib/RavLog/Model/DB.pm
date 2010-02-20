@@ -4,7 +4,7 @@ use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
 __PACKAGE__->config(
-   schema_class => 'RavLog::Schema::DB',
+   schema_class => 'RavLog::Schema',
    connect_info => [
      'DBI:mysql:dbname=ravlog',
      'ravlog_user',

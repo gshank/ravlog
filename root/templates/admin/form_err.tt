@@ -1,0 +1,5 @@
+[% IF form.errors -%]
+   [% FOREACH form_error in form.errors -%]
+   [% form_error %]
+   [% END -%]
+[% END -%]
