@@ -3,7 +3,9 @@ package RavLog::Schema::Result::Article;
 use strict;
 use warnings;
 use base 'DBIx::Class';
-use Text::Textile 'textile';
+#use Text::Textile 'textile';
+use Ravlog::Format;
+use namespace::autoclean;
 
 __PACKAGE__->load_components( 'TimeStamp', 'InflateColumn::DateTime', 'Core' );
 __PACKAGE__->table('articles');
@@ -78,30 +80,11 @@ __PACKAGE__->has_many(
 );
 __PACKAGE__->many_to_many( 'tags' => 'tags_articles', 'tag' );
 
-sub textilize
-{
-   my $self = shift;
-   my $what = shift;
 
-   my $temp = $self->$what;
-
-   return $temp if ( $self->format && $self->format eq 'html' );
-   # TODO: support different formats!!!
-   $temp =~ s/<textarea/==<textarea/g;
-   $temp =~ s/<\/textarea>/<\/textarea>==/g;
-   # $temp =~ s/\[code (.*?)\]/==\[code $1\]/g;
-   # $temp =~ s/\[\/code\]/\[\/code\]==/g;
-   return textile($temp);
+sub formatted_body {
+    my $self = shift;
+    my $format = $self->format || 'text';
+    return RavLog::Format::format_html( $self->body, $format );
 }
-
-sub insert
-{
-   my $self = shift;
-   $self->created_at( DateTime->now() );
-   $self->next::method(@_);
-}
-
-
 
 1;
-

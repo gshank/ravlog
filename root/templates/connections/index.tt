@@ -23,7 +23,7 @@
 	</div>
 	
 	<div class="post-content">
-		[% article.textilize('body') %]
+		[% article.formatted_body %]
 	</div>
 	<div class="post-footer">&nbsp;</div>
 	</div>
@@ -41,7 +41,7 @@
 [% END %]
 	<h3><a title="[% comment.url %]" href="[% comment.url %]">[% comment.name %]</a></h3>
 	<small class="commentmetadata">Posted [% c.render_ravlog_date(comment.created_at) %]</small>
-	<p>[% comment.textilize('comment') %]</p>
+	<p>[% comment.formatted_body %]</p>
 	</div>
 	</li>
 [% END %]

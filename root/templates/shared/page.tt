@@ -1,1 +1,1 @@
-[% page.textilize('body') %]
+[% page.formatted_body %]

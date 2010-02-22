@@ -2,6 +2,10 @@ package RavLog::Format;
 use strict;
 use warnings;
 use Carp;
+use namespace::autoclean;
+
+# this formatting code is from Angerwhale, and is copyright
+# Jonathan Rockway and Florian Ragwitz
 
 use Module::Pluggable (
     search_path => ['RavLog::Format'],
@@ -50,9 +54,39 @@ __END__
 
 =head1 NAME
 
-RavLog::Format - Dispatches formatting of posts/comments to sub-modules
+RavLog::Format - Dispatches formatting of articles/comments
 
 =head1 SYNOPSIS
 
+  my @types = (
+    {
+       'description' => 'Text::WikiFormat formatted text',
+       'type' => 'wiki',
+    },
+    {
+       'description' => 'Perl POD (Plain Old Documentation)',
+       'type' => 'pod',
+    },
+    {
+       'description' => 'Markdown formatted text',
+       'type' => 'markdown',
+    },
+    {
+       'description' => 'HTML',
+       'type' => 'html',
+    },
+    {
+       'description' => 'Textile formatted text',
+       'type' => 'textile',
+    },
+    {
+       'description' => 'Plain text',
+       'type' => 'text',
+    },
+    {
+       'description' => 'Simple Blog Code',
+       'type' => 'sbc',
+    }
+  );
 
 =cut

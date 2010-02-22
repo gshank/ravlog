@@ -25,6 +25,7 @@ foreach my $article (@articles)
 {
    print $article->subject, "\n";
    print $article->user->username, "\n";
+   print $article->formatted_body, "\n";
 }
 
 my $article = $schema->resultset('Article')->new_result({});

@@ -17,6 +17,8 @@ has_field 'tags' => (
       multiple => 1,
 );
 
+with 'RavLog::Form::Formats';
+
 has_field 'body' => (
       required => 1,
       type     => 'TextArea',

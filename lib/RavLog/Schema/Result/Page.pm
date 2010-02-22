@@ -29,6 +29,12 @@ __PACKAGE__->add_columns(
     default_value => undef,
     is_nullable => 1,
   },
+   "format",
+   {
+      data_type     => 'varchar',
+      is_nullable   => 1,
+      size          => 12,
+   },
   "display_sidebar",
   {
 	data_type => 'smallint',
@@ -44,15 +50,10 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("page_id");
 
-sub textilize {
+sub formatted_body {
     my $self = shift;
-    my $what = shift;
-    
-    my $temp = $self->$what;
-    $temp =~ s/\[code (.*?)\]/==<pre>\[code $1\]/g;
-    $temp =~ s/\[\/code\]/\[\/code\]<\/pre>==/g;
-    return textile($temp);
+    my $format = $self->format || 'text';
+    return RavLog::Format::format_html( $self->body, $format );
 }
 
 1;
-

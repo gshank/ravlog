@@ -27,6 +27,8 @@ has_field 'display_in_drawer' => (
       options  => [ { value => 1, label => 'Yes'}, { value => 0, label => 'No'}],
    );
 
+with 'RavLog::Form::Formats';
+
 has_field 'body' => (
       required => 1,
       label    => 'Page Content',

@@ -20,6 +20,8 @@ has_field 'url' => (
      label => 'Website', 
      size => 25 );
 
+with 'RavLog::Form::Formats';
+
 has_field 'comment' => (
       type     => 'TextArea',
       required => 1,
