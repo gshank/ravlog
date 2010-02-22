@@ -1,35 +1,10 @@
-# SBC.pm
-# Copyright (c) 2006 Florian Ragwitz <rafl@debian.org>
-
 package RavLog::Format::SBC;
 use strict;
 use warnings;
 use HTML::SBC;
 use RavLog::Format::HTML;
 
-=head1 RavLog::Format::SBC
-
-Format Simple Blog Code into HTML.
-
-=head1 METHODS
-
-Standard methods implemented
-
-=head2 new
-
-=head2 can_format
-
-Can format *.sbc
-
-=head2 types
-
-Handles 'sbc', which is Simple Blog Code.
-
-=head2 format
-
-=head2 format_text
-
-=cut
+# Format Simple Blog Code into HTML.
 
 sub new {
     my $class = shift;
@@ -76,6 +51,3 @@ sub format_text {
 }
 
 1;
-
-__END__
-

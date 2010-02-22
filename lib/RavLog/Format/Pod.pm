@@ -1,5 +1,3 @@
-# Pod.pm
-# Copyright (c) 2006 Jonathan Rockway <jrockway@cpan.org>
 package RavLog::Format::Pod;
 use strict;
 use warnings;
@@ -15,42 +13,15 @@ use Syntax::Highlight::Engine::Kate::All;
 # spaces = spaces that the textblock is indented by
 __PACKAGE__->mk_accessors(qw/lang spaces/);
 
-=head1 RavLog::Format::Pod
+# Fomat POD documentation as XHTML.  Syntax-highlight code blocks.
 
-Fomat POD documentation as XHTML.  Syntax-highlight code blocks.
 
-=head1 METHODS
+# verbatim: Overrides Pod::Xhtml to provide syntax-highlighting of code blocks.
 
-Standard methods implemented
-
-=head2 new
-
-=head2 can_format
-
-Can format *.pod.
-
-=head2 types
-
-Handles 'pod' which is perl's Plain Old Documenation.  See L<perlpod>.
-
-=head2 format
-
-=head2 format_text
-
-=head2 verbatim
-
-Overrides Pod::Xhtml to provide syntax-highlighting of code blocks.
-
-To specify a language for a code block, and all remaining code blocks,
-make the first line C<lang:LanguageName>, like C<lang:Perl> or
-C<lang:Haskell>.  To turn off syntax highlighting until
-the next C<lang:> directive, do C<lang:0> or C<lang:undef>.
-
-=head2 textblock
-
-C<pod--> (long story)
-
-=cut
+# To specify a language for a code block, and all remaining code blocks,
+# make the first line C<lang:LanguageName>, like C<lang:Perl> or
+# C<lang:Haskell>.  To turn off syntax highlighting until
+# the next C<lang:> directive, do C<lang:0> or C<lang:undef>.
 
 sub new {
     my $class = shift;
@@ -59,7 +30,7 @@ sub new {
         MakeIndex    => 0,
         FragmentOnly => 1,
         TopHeading   => 3,
-                                  );
+    );
     $self->spaces(-1);
     return $self;
 }
@@ -93,9 +64,9 @@ sub format {
     my $result = IO::String->new;
 
     $self->parse_from_filehandle( $input, $result );
-    
+
     my $output = ${ $result->string_ref };
-    $output =~ s{\n</pre>}{</pre>}g; # fixup some weird formatting
+    $output =~ s{\n</pre>}{</pre>}g;    # fixup some weird formatting
     return $output;
 }
 
@@ -154,16 +125,16 @@ sub verbatim {
         shift @lines;
     }
     # strip unnecessary leading spaces
-    my ($res, $spaces) = _strip_leading_spaces([@lines],$parser->spaces);
+    my ( $res, $spaces ) = _strip_leading_spaces( [@lines], $parser->spaces );
     $text = join "\n", @{$res};
     $parser->spaces($spaces);
-    
+
     # syntax highlight if necessary
     if ( $parser->lang ) {
         eval {
             no warnings 'redefine';
-            local *Syntax::Highlight::Engine::Kate::Template::logwarning
-              = sub { die @_ }; # i really don't care
+            local *Syntax::Highlight::Engine::Kate::Template::logwarning =
+                sub { die @_ };    # i really don't care
             my $hl = Syntax::Highlight::Engine::Kate->new(
                 language      => $parser->lang,
                 substitutions => {
@@ -176,13 +147,11 @@ sub verbatim {
                 format_table => {
                     # convert Kate's internal representation into
                     # <span class="<internal name>"> value </span>
-                    map {
-                        $_ => [ qq{<span class="$_">}, '</span>' ]
-                    }
-                      qw/Alert BaseN BString Char Comment DataType
-                         DecVal Error Float Function IString Keyword
-                         Normal Operator Others RegionMarker Reserved
-                         String Variable Warning/,
+                    map { $_ => [ qq{<span class="$_">}, '</span>' ] }
+                        qw/Alert BaseN BString Char Comment DataType
+                        DecVal Error Float Function IString Keyword
+                        Normal Operator Others RegionMarker Reserved
+                        String Variable Warning/,
                 },
             );
 
@@ -201,13 +170,13 @@ sub verbatim {
 }
 
 sub _strip_leading_spaces {
-    my @lines = @{shift()};
+    my @lines = @{ shift() };
     my $spaces = shift || -1;
-    
+
     # figure out how many that is
     for my $line (@lines) {
         next if $line =~ /^\s*$/;    # skip lines that are all spaces
-        if ($line =~ /^(\s+)/){
+        if ( $line =~ /^(\s+)/ ) {
             if ( $spaces == -1 ) {
                 $spaces = length $1;
             }
@@ -219,13 +188,13 @@ sub _strip_leading_spaces {
             $spaces = 0;
         }
     }
-    
+
     for my $line (@lines) {
         next if $line =~ /^\s*$/;
-        $line =  substr $line, $spaces;
+        $line = substr $line, $spaces;
     }
-    
-    return ([@lines],$spaces);
+
+    return ( [@lines], $spaces );
 }
 
 1;

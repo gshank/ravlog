@@ -1,35 +1,10 @@
-# Markdown.pm
-# Copyright (c) 2006 Florian Ragwitz <rafl@debian.org>
-
 package RavLog::Format::Markdown;
 use strict;
 use warnings;
 use Text::Markdown;
 use RavLog::Format::HTML;
 
-=head1 RavLog::Format::Markdown
-
-Format Markdown formatted text into HTML.
-
-=head1 METHODS
-
-Standard methods implemented
-
-=head2 new
-
-=head2 can_format
-
-Can format *.markdown
-
-=head2 types
-
-Handles 'markdown', which is Markdown formatted text.
-
-=head2 format
-
-=head2 format_text
-
-=cut
+# Format Markdown formatted text into HTML.
 
 sub new {
     my $class = shift;
@@ -76,6 +51,3 @@ sub format_text {
 }
 
 1;
-
-__END__
-

@@ -30,6 +30,19 @@ requires 'Config::Any::Perl';
 requires 'XML::Feed';
 requires 'HTML::CalendarMonthSimple';
 requires 'DateTime';
+requires 'HTML::Tree';
+requires 'HTML::SBC';
+requires 'Text::Autoformat';
+requires 'Text::Markdown';
+requires 'Text::WikiFormat';
+requires 'Quantum::Superpositions';
+requires 'Pod::Xhtml'                                  => '1.57',
+requires 'Syntax::Highlight::Engine::Kate';
+requires 'TeX::Hyphen';
+requires 'Module::Pluggable';
+
+test_requires 'Test::HTML::Tidy';
+test_requires 'Test::XML::Valid';
 
 catalyst;
 

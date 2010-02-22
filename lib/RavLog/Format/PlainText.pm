@@ -1,39 +1,11 @@
-# PlainText.pm
-# Copyright (c) 2006 Jonathan Rockway <jrockway@cpan.org>
-
 package RavLog::Format::PlainText;
 use strict;
 use warnings;
-use Text::Autoformat qw(autoformat break_TeX);
+use Text::Autoformat ('autoformat', 'break_TeX');
 use URI::Find;
 
-=head1 RavLog::Format::PlainText
-
-Format plain text files as pretty HTML (and nicely-formated plain
-text via Text::AutoFormat)
-
-=head1 METHODS
-
-Standard methods implemented
-
-=head2 new
-
-=head2 can_format
-
-Can format *.txt and *.text.
-
-=head2 types
-
-Handles 'text' which is plain text
-
-=head2 format
-
-Returns the text as HTML, making line breaks into paragraphs and links
-clickable.
-
-=head2 format_text
-
-=cut
+# Format plain text files as pretty HTML (and nicely-formated plain
+# text via Text::AutoFormat)
 
 sub new {
     my $class = shift;

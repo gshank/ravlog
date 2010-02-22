@@ -1,35 +1,10 @@
-# Textile.pm
-# Copyright (c) 2007 Florian Ragwitz <rafl@debian.org>
-
 package RavLog::Format::Textile;
 use strict;
 use warnings;
 use Text::Textile;
 use RavLog::Format::HTML;
 
-=head1 RavLog::Format::Textile
-
-Format Textile formatted text into HTML.
-
-=head1 METHODS
-
-Standard methods implemented
-
-=head2 new
-
-=head2 can_format
-
-Can format *.textile
-
-=head2 types
-
-Handles 'textile', which is Textile formatted text.
-
-=head2 format
-
-=head2 format_text
-
-=cut
+# Format Textile formatted text into HTML.
 
 sub new {
     my $class = shift;
@@ -79,6 +54,3 @@ sub format_text {
 }
 
 1;
-
-__END__
-

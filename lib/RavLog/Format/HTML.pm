@@ -1,6 +1,3 @@
-# HTML.pm
-# Copyright (c) 2006 Jonathan Rockway <jrockway@cpan.org>
-
 package RavLog::Format::HTML;
 use HTML::TreeBuilder;
 use Quantum::Superpositions;
@@ -13,39 +10,7 @@ use strict;
 use warnings;
 __PACKAGE__->mk_accessors(qw/_links/);
 
-=head1 RavLog::Format::HTML
-
-Format valid or invalid HTML into valid XHTML or plain text.
-
-For example:
-
-   <p>Foo <script>hack()</script><b>bar<i>baz
-   </p></a>
-
-is formatted to:
-
-   <p>Foo <b>bar<i>baz</i></b></p>
-
-=head1 METHODS
-
-Standard methods implemented
-
-=head2 new
-
-=head2 can_format
-
-Can format *.html.
-
-=head2 types
-
-Handles 'html' which is the w3c's hypertext markup language.  You
-may have heard of it.
-
-=head2 format
-
-=head2 format_text
-
-=cut
+# Format valid or invalid HTML into valid XHTML or plain text.
 
 sub new {
     my $class = shift;
@@ -212,8 +177,8 @@ sub _parse {
                     $scheme = 'http';
                 }
 
-                if (   $scheme !~ /^(http|ftp|mailto)$/
-                    || $uri->as_string =~ /#/ )
+                if ( $scheme !~ /^(http|ftp|mailto)$/ ||
+                    $uri->as_string =~ /#/ )
                 {
                     $result .= $self->_parse(@kids);    # not a link.
                 }
@@ -238,8 +203,8 @@ sub _parse {
                 my $quote;
 
                 foreach my $kid (@kids) {
-                    if ( blessed $kid
-                        && $kid->tag eq any(qw|p blockquote ul|) )
+                    if ( blessed $kid &&
+                        $kid->tag eq any(qw|p blockquote ul|) )
                     {
                         $quote .= $self->_parse($kid);
                     }
@@ -251,9 +216,8 @@ sub _parse {
                     }
                 }
                 my $cite = $self->{cite};
-                $result .= $cite
-                  ? qq{<blockquote cite="$cite">}
-                  : q{<blockquote>};
+                $result .= $cite ? qq{<blockquote cite="$cite">} :
+                                   q{<blockquote>};
 
                 $result .= qq{$quote</blockquote>};
             }
@@ -262,8 +226,8 @@ sub _parse {
             elsif ( $type eq any(qw(ul ol)) ) {
                 $result .= "<$type>";
                 foreach my $kid (@kids) {
-                    if ( blessed $kid
-                        && $kid->tag eq 'li' )
+                    if ( blessed $kid &&
+                        $kid->tag eq 'li' )
                     {
                         $result .= $self->_parse($kid);
                     }
@@ -280,10 +244,10 @@ sub _parse {
             elsif (
                 $type eq any(
                     qw(i strong b u pre samp code
-                      kbd p q ol ul li dt dl dd
-                      tt big small sub sup)
+                        kbd p q ol ul li dt dl dd
+                        tt big small sub sup)
                 )
-              )
+                )
             {
                 $result .= qq{<$type>};
                 $result .= $self->_parse(@kids);
@@ -345,6 +309,3 @@ sub _escape {
 }
 
 1;
-
-__END__
-
