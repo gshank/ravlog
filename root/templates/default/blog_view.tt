@@ -1,9 +1,5 @@
 <br />
-[% IF articles.count == 0 %]
-<p>No matching articles found</p>
-[% END %]
-<p>articles count = [% articles.count %]</p>
-[% WHILE ( article = articles.next ) %]
+    [% article.subject %]
 	<div class="post">
 	[% url = '/' _ c.ravlog_txt_to_url(article.subject, article.id) _ '/view' %]
 	<div class="post-info">
@@ -33,7 +29,7 @@
 	</div>
 	<br />
    <br />
-[% END %]
+
 <div id="comments"></div>
 
 <ol class="commentlist">

@@ -77,6 +77,7 @@ __PACKAGE__->belongs_to( 'user', 'RavLog::Schema::Result::User', 'user_id' );
 
 sub formatted_body {
     my $self = shift;
+$DB::single=1;
     my $format = $self->format || 'text';
     return RavLog::Format::format_html( $self->body, $format );
 }
